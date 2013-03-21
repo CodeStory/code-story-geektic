@@ -16,41 +16,41 @@ script: coffee/controllers.coffee
                        placeholder="Qu'est ce qui te passionne?" autofocus="autofocus">
             </form>
         </div>
-        <div id="geek2" class="span4">
+        <div id="geek2" class="span4" ng-class="{geekDisplayed: geeks.length>0}">
             <img class="result" ng-show="geeks.length>0" ng-src="{{geeks[0].gravatar}}?s=256">
 
             <div class="caption" ng-show="geeks.length>0"><span>{{geeks[0].prenom}}</span></div>
         </div>
-        <div id="geek3" class="span4">
+        <div id="geek3" class="span4"  ng-class="{geekDisplayed: geeks.length>0}">
             <img class="result" ng-show="geeks.length>1" ng-src="{{geeks[1].gravatar}}?s=256">
 
             <div class="caption" ng-show="geeks.length>1"><span>{{geeks[1].prenom}}</span></div>
         </div>
     </div>
     <div class="row-fluid">
-        <div id="geek4" class="span4">
+        <div id="geek4" class="span4"  ng-class="{geekDisplayed: geeks.length>0}">
             <img class="result" ng-show="geeks.length>2" ng-src="{{geeks[2].gravatar}}?s=256">
 
             <div class="caption" ng-show="geeks.length>2"><span>{{geeks[2].prenom}}</span></div>
         </div>
-        <div id="geek5" class="span4">
+        <div id="geek5" class="span4"  ng-class="{geekDisplayed: geeks.length>0}">
             <img class="result" ng-show="geeks.length>3" ng-src="{{geeks[3].gravatar}}?s=256">
 
             <div class="caption" ng-show="geeks.length>3"><span>{{geeks[3].prenom}}</span></div>
         </div>
-        <div id="geek6" class="span4">
+        <div id="geek6" class="span4"  ng-class="{geekDisplayed: geeks.length>0}">
             <img class="result" ng-show="geeks.length>4" ng-src="{{geeks[4].gravatar}}?s=256">
 
             <div class="caption" ng-show="geeks.length>4"><span>{{geeks[4].prenom}}</span></div>
         </div>
     </div>
     <div class="row-fluid">
-        <div id="geek7" class="span4">
+        <div id="geek7" class="span4"  ng-class="{geekDisplayed: geeks.length>0}">
             <img class="result" ng-show="geeks.length>5" ng-src="{{geeks[5].gravatar}}?s=256">
 
             <div class="caption" ng-show="geeks.length>5"><span>{{geeks[5].prenom}}</span></div>
         </div>
-        <div id="geek8" class="span4">
+        <div id="geek8" class="span4"  ng-class="{geekDisplayed: geeks.length>0}">
             <img class="result" ng-show="geeks.length>6" ng-src="{{geeks[6].gravatar}}?s=256">
 
             <div class="caption" ng-show="geeks.length>6"><span>{{geeks[6].prenom}}</span></div>
