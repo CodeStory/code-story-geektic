@@ -20,8 +20,9 @@ class PhantomJsDownloader {
   private final boolean isMac;
 
   PhantomJsDownloader() {
-    isWindows = System.getProperty("os.name").startsWith("Windows");
-    isMac = System.getProperty("os.name").startsWith("Mac OS X");
+    String osName = System.getProperty("os.name");
+    isWindows = osName.startsWith("Windows");
+    isMac = osName.startsWith("Mac OS X") || osName.startsWith("Darwin");
   }
 
   public File downloadAndExtract() {
