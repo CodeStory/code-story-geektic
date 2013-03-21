@@ -1,5 +1,6 @@
 package resources;
 
+import com.google.common.io.Files;
 import webserver.Response;
 import webserver.annotations.GET;
 import webserver.annotations.PathParam;
@@ -31,20 +32,22 @@ public class StaticResource extends AbstractResource {
     return file("static/js/" + path);
   }
 
-  @GET(path = "/static/{version}/img/{path}", produces = "image/png")
-  public File png(@PathParam("path") String path) {
-    return file("static/img/" + path);
+  @GET(path = "/static/{version}/img/{path}")
+  public Response png(@PathParam("path") String path) {
+    String contentType = "image/" + Files.getFileExtension(path);
+
+    return ok(file("static/img/" + path)).header("Content-type", contentType);
   }
 
   @GET(path = "/static/{version}/less/{path}", produces = "text/css;charset=UTF-8")
   public Response less(@PathParam("path") String path) throws IOException {
     File less = file(path);
-    return Response.ok(templatize(lessCompiler.compile(less))).lastModified(less);
+    return ok(templatize(lessCompiler.compile(less))).lastModified(less);
   }
 
   @GET(path = "/static/{version}/coffee/{path}", produces = "application/javascript;charset=UTF-8")
   public Response coffee(@PathParam("path") String path) throws IOException {
     File coffee = file(path);
-    return Response.ok(coffeeScriptCompiler.compile(coffee)).lastModified(coffee);
+    return ok(coffeeScriptCompiler.compile(coffee)).lastModified(coffee);
   }
 }

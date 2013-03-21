@@ -4,6 +4,7 @@ import com.google.common.base.Charsets;
 import com.google.common.base.Throwables;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.io.Files;
+import webserver.Response;
 import webserver.errors.NotFoundException;
 import webserver.templating.ContentWithVariables;
 import webserver.templating.Layout;
@@ -15,6 +16,10 @@ import java.io.IOException;
 import java.util.Map;
 
 public abstract class AbstractResource {
+  protected Response ok(Object entity) {
+    return Response.ok(entity);
+  }
+
   protected String templatize(File file) {
     return templatize(file, ImmutableMap.of());
   }

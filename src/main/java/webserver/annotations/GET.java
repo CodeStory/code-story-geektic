@@ -12,5 +12,5 @@ import java.lang.annotation.Target;
 public @interface GET {
   String path();
 
-  String produces();
+  String produces() default "";
 }
