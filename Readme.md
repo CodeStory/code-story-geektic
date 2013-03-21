@@ -20,3 +20,4 @@ TODO :
  + Sauvegarde des geeks
  + Donner ses coordonnees actuelle (checkin)
  + Partager le site sur twitter
+ + Changer l'url en live
