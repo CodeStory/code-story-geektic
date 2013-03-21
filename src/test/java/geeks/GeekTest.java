@@ -45,7 +45,7 @@ public class GeekTest {
     geek.prenom = "PRENOM";
     geek.email = "david@gageot.net";
     geek.ville = "VILLE";
-    geek.like1 = "LIK1";
+    geek.like1 = "LIKE1";
     geek.like2 = "LIKE2";
     geek.like3 = "LIKE3";
 
