@@ -25,14 +25,12 @@ script: coffee/controllers.coffee
                     <th>Prénom</th>
                     <th>Ville</th>
                     <th>Like</th>
-                    <th>Hate</th>
                 </tr>
                 <tr ng-repeat="geek in geeks">
                     <td><img class="gravatar" ng-src="{{geek.gravatar}}?s=32"></td>
                     <td>{{geek.prenom}}</td>
                     <td>{{geek.ville}}</td>
                     <td>{{geek.like1}} {{geek.like2}} {{geek.like3}}</td>
-                    <td>{{geek.hate1}} {{geek.hate2}}</td>
                 </tr>
             </table>
         </div>
