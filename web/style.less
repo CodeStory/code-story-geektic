@@ -1,33 +1,111 @@
 @white: #FFFFFF;
 @black: #000000;
 @gray: #EEEEEE;
+@yellow: rgb(242, 217, 153);
+@green: rgb(142, 217, 153);
+@blue: rgb(0, 163, 219);
 @star_size: 64px;
 
 [ng-cloak] {
   display: none !important;
 }
 
-html {
-  background: url('/static/[[version]]/img/geek1.jpg') no-repeat center center fixed;
-  .background-size(cover);
-}
+@import url(http://fonts.googleapis.com/css?family=Wendy+One);
 
 body {
-  background-color: transparent;
+  background-color: @white;
+  font-family: 'Wendy One', sans-serif;
 
-  .title {
+  .title, h4 {
     text-align: center;
   }
 
   .form-search {
+    text-align: center;
     input {
-      width: 90%;
     }
   }
 
+  #geek1 {
+    background-color: @green;
+  }
+
+  #geek2 {
+    background: url('/static/[[version]]/img/geek2.jpg') no-repeat;
+  }
+
+  #geek3 {
+    background: url('/static/[[version]]/img/geek3.jpg') no-repeat;
+  }
+
+  #geek4 {
+    background: url('/static/[[version]]/img/geek6.jpg') no-repeat;
+  }
+
+  #geek5 {
+    background: url('/static/[[version]]/img/geek9.jpg') no-repeat;
+  }
+
+  #geek6 {
+    background: url('/static/[[version]]/img/geek5.jpg') no-repeat;
+  }
+
+  #geek7 {
+    background: url('/static/[[version]]/img/geek4.jpg') no-repeat;
+  }
+
+  #geek8 {
+    background: url('/static/[[version]]/img/geek8.jpg') no-repeat;
+  }
+
+  #geek9 {
+    background: url('/static/[[version]]/img/geek7.jpg') no-repeat;
+  }
+
+  #geek1, #geek2, #geek3, #geek4, #geek5, #geek6, #geek7, #geek8, #geek9 {
+    height: 250px;
+    margin: 2px; //border: solid grey 1px;
+    .background-size(cover);
+  }
+
+  .result {
+    width: 100%;
+    height: 100%;
+  }
+
   img.gravatar {
-    width: 32px;
-    height: 32px;
+    width: 128px;
+    height: 128px;
+  }
+
+  .full-caption, .caption {
+    background-color: rgba(0, 0, 0, 0.8);
+    color: @white;
+    text-align: left;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+
+    .inner {
+      margin: 0;
+      padding: 10px;
+
+      h3 {
+        margin: 0;
+        padding: 0;
+      }
+    }
+  }
+
+  .caption {
+    position: relative;
+    bottom: 30px;
+    height: 30px;
+
+    span {
+      padding: 10px;
+    }
   }
 }
 
