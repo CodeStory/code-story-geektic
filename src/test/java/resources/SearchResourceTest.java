@@ -1,6 +1,6 @@
 package resources;
 
-import geeks.Geek;
+import geeks.Result;
 import org.junit.Test;
 
 import java.util.List;
@@ -12,7 +12,7 @@ public class SearchResourceTest {
 
   @Test
   public void should_find_nothing() {
-    List<Geek> geeks = searchResource.json("");
+    List<Result> geeks = searchResource.json("");
 
     assertThat(geeks).isEmpty();
   }

@@ -42,14 +42,21 @@ public class GeekTest {
   @Test
   public void should_compute_gravatar() {
     Geek geek = new Geek();
+    geek.prenom = "PRENOM";
     geek.email = "david@gageot.net";
+    geek.ville = "VILLE";
+    geek.like1 = "LIK1";
+    geek.like2 = "LIKE2";
+    geek.like3 = "LIKE3";
 
-    assertThat(geek.gravatar).isNull();
+    Result result = geek.toResult();
 
-    geek.anonymize();
-
-    assertThat(geek.gravatar).isEqualTo("http://gravatar.com/avatar/f0887bf6175ba40dca795eb37883a8cf");
-    assertThat(geek.email).isNull();
+    assertThat(result.prenom).isEqualTo("PRENOM");
+    assertThat(result.like1).isEqualTo("LIKE1");
+    assertThat(result.like2).isEqualTo("LIKE2");
+    assertThat(result.like3).isEqualTo("LIKE3");
+    assertThat(result.ville).isEqualTo("VILLE");
+    assertThat(result.gravatar).isEqualTo("http://gravatar.com/avatar/f0887bf6175ba40dca795eb37883a8cf");
   }
 
   private static Geek geek(String like1, String like2, String like3) {

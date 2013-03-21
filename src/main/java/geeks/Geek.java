@@ -1,7 +1,6 @@
 package geeks;
 
 import com.google.common.base.Strings;
-import com.google.common.hash.Hashing;
 import com.google.gson.Gson;
 
 public class Geek {
@@ -12,11 +11,9 @@ public class Geek {
   public String like1;
   public String like2;
   public String like3;
-  public String gravatar;
 
-  public void anonymize() {
-    this.gravatar = "http://gravatar.com/avatar/" + Hashing.md5().hashBytes(email.getBytes());
-    this.email = null;
+  public Result toResult() {
+    return new Result(prenom, ville, like1, like2, like3, email);
   }
 
   public static void main(String[] args) throws Exception {

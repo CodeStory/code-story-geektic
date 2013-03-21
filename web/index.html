@@ -16,7 +16,6 @@ script: coffee/controllers.coffee
             <table class="table table-striped">
                 <tr>
                     <th>Photo</th>
-                    <th>Nom</th>
                     <th>Prénom</th>
                     <th>Ville</th>
                     <th>Like</th>
@@ -24,7 +23,6 @@ script: coffee/controllers.coffee
                 </tr>
                 <tr ng-repeat="geek in geeks">
                     <td><img class="gravatar" ng-src="{{geek.gravatar}}?s=32"></td>
-                    <td>{{geek.nom}}</td>
                     <td>{{geek.prenom}}</td>
                     <td>{{geek.ville}}</td>
                     <td>{{geek.like1}} {{geek.like2}} {{geek.like3}}</td>

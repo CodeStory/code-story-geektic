@@ -21,5 +21,3 @@ TODO :
  + Sauvegarde des geeks
  + Donner ses coordonnees actuelle (checkin)
  + Partager le site sur twitter
- + Masquer les noms
- +
