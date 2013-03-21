@@ -10,7 +10,6 @@ TODO :
 ======
 
  + Preparer le deploiement
- + Centrer correctement le champ de recherche
  + Enlever le bouton Search
  + Améliorer le rendu avec par exemple une mosaique
  + Rechercher plusieurs termes
