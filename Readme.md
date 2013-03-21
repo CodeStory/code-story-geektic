@@ -9,7 +9,6 @@ Pourquoi un framework web maison ?
 TODO :
 ======
 
- + Nom de domaine
  + Preparer le deploiement
  + Centrer correctement le champ de recherche
  + Enlever le bouton Search
