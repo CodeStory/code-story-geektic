@@ -5,6 +5,11 @@ script: coffee/controllers.coffee
 ---
 <div class="container-fluid" ng-controller="homeController" ng-cloak>
     <div class="row-fluid">
+        <div class="title span6 offset3">
+            <h1>Geektic</h1>
+        </div>
+    </div>
+    <div class="row-fluid">
         <div class="span6 offset3">
             <form class="form-search">
                 <input ng-change="test()" ng-model="search" type="text" class="input-medium search-query"
