@@ -15,6 +15,5 @@ public class MainGeekticConfiguration extends AbstractModule {
 
   @Override
   protected void configure() {
-    bind(File.class).annotatedWith(named("votes.file")).toInstance(new File(workingDir, "votes"));
   }
 }

@@ -1,4 +1,4 @@
-package templating;
+package webserver.templating;
 
 import java.util.Map;
 

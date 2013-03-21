@@ -1,4 +1,4 @@
-package templating;
+package webserver.templating;
 
 public class Layout {
   private final String layout;

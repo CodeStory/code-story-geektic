@@ -1,4 +1,4 @@
-package templating;
+package webserver.templating;
 
 import com.google.common.collect.ImmutableMap;
 import org.junit.Test;

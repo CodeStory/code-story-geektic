@@ -1,4 +1,4 @@
-package templating;
+package webserver.templating;
 
 import com.github.mustachejava.DefaultMustacheFactory;
 import com.github.mustachejava.Mustache;

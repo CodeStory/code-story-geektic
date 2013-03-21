@@ -3,12 +3,14 @@ package webserver;
 import com.google.common.collect.Maps;
 import org.simpleframework.http.Status;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Map;
 
 public class Response {
-  private static ThreadLocal<SimpleDateFormat> DATE_FORMAT = new ThreadLocal<SimpleDateFormat>() {
+  private static final long ONE_YEAR = 1000L * 3600 * 24 * 365;
+
+  public static ThreadLocal<SimpleDateFormat> DATE_FORMAT = new ThreadLocal<SimpleDateFormat>() {
     @Override
     protected SimpleDateFormat initialValue() {
       return new SimpleDateFormat("EEE, dd MMM yyyy hh:mm:ss zzz");
@@ -17,8 +19,8 @@ public class Response {
 
   private Status status = Status.OK;
   private Object entity = "";
-  private Date lastModified;
-  private Date expires;
+  private Long lastModified;
+  private Long expires;
   private Map<String, String> headers = Maps.newLinkedHashMap();
 
   public Response(Object entity) {
@@ -30,13 +32,14 @@ public class Response {
     return new Response(entity);
   }
 
-  public Response lastModified(Date date) {
-    this.lastModified = date;
-    return this;
+  public Response lastModified(File file) {
+    return lastModified(file.lastModified());
   }
 
-  public Response expires(Date date) {
-    this.expires = date;
+  public Response lastModified(long date) {
+    this.lastModified = date;
+    this.expires = date + ONE_YEAR;
+    header("Cache-Control", "public");
     return this;
   }
 
@@ -47,10 +50,6 @@ public class Response {
 
   public Response setStatus(Status status) {
     this.status = status;
-    return this;
-  }
-
-  public Response build() {
     return this;
   }
 

@@ -1,65 +1,50 @@
 package resources;
 
-import org.jcoffeescript.JCoffeeScriptCompileException;
-import org.jcoffeescript.JCoffeeScriptCompiler;
-import org.jcoffeescript.Option;
-import org.lesscss.LessCompiler;
-import org.lesscss.LessException;
-import webserver.GET;
-import webserver.PathParam;
+import webserver.compilers.CoffeeScriptCompiler;
+import webserver.annotations.GET;
+import webserver.compilers.LessCompiler;
+import webserver.annotations.PathParam;
 import webserver.Response;
+
+import javax.inject.Inject;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
 
 public class StaticResource extends AbstractResource {
   private final LessCompiler lessCompiler;
-  private final JCoffeeScriptCompiler coffeeScriptCompiler;
+  private final CoffeeScriptCompiler coffeeScriptCompiler;
 
-  public StaticResource() {
-    lessCompiler = new LessCompiler();
-    coffeeScriptCompiler = new JCoffeeScriptCompiler(Arrays.asList(Option.BARE));
+  @Inject
+  public StaticResource(CoffeeScriptCompiler coffeeScriptCompiler, LessCompiler lessCompiler) {
+    this.coffeeScriptCompiler = coffeeScriptCompiler;
+    this.lessCompiler = lessCompiler;
   }
 
   @GET(path = "/static/{version}/css/{path}", produces = "text/css;charset=UTF-8")
-  public Response cssOrLess(@PathParam("path") String path) throws IOException, LessException {
-    path = "css/" + path;
-    // Css
-    if (exists(path)) {
-      File css = file(path);
-      return okTemplatize(css);
-    }
-
-    // Less
-    File output = new File("target", path);
-    synchronized (lessCompiler) {
-      lessCompiler.compile(file(path.replace(".css", ".less")), output, false);
-    }
-    return okTemplatize(output);
+  public File css(@PathParam("path") String path) throws IOException {
+    return file("static/css/" + path);
   }
 
   @GET(path = "/static/{version}/js/{path}", produces = "application/javascript;charset=UTF-8")
-  public Response js(@PathParam("path") String path) throws JCoffeeScriptCompileException {
-    path = "js/" + path;
-    // Js
-    if (exists(path)) {
-      File js = file(path);
-      return ok(js);
-    }
-
-    // Coffee
-    File coffee = file(path.replace(".js", ".coffee"));
-    String js;
-    synchronized (coffeeScriptCompiler) {
-      js = coffeeScriptCompiler.compile(read(coffee));
-    }
-    return ok(js, coffee.lastModified());
+  public File js(@PathParam("path") String path) throws IOException {
+    return file("static/js/" + path);
   }
 
   @GET(path = "/static/{version}/img/{path}", produces = "image/png")
-  public Response png(@PathParam("path") String path) {
-    path = "img/" + path;
-    return ok(file(path));
+  public File png(@PathParam("path") String path) {
+    return file("static/img/" + path);
+  }
+
+  @GET(path = "/static/{version}/less/{path}", produces = "text/css;charset=UTF-8")
+  public Response less(@PathParam("path") String path) throws IOException {
+    File less = file(path);
+    return Response.ok(templatize(lessCompiler.compile(less))).lastModified(less);
+  }
+
+  @GET(path = "/static/{version}/coffee/{path}", produces = "application/javascript;charset=UTF-8")
+  public Response coffee(@PathParam("path") String path) throws IOException {
+    File coffee = file(path);
+    return Response.ok(coffeeScriptCompiler.compile(coffee)).lastModified(coffee);
   }
 }

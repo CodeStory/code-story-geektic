@@ -1,4 +1,4 @@
-package webserver;
+package webserver.internal;
 
 import com.google.common.base.CharMatcher;
 import com.google.common.base.Splitter;

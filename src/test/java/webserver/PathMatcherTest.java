@@ -1,6 +1,7 @@
 package webserver;
 
 import org.junit.Test;
+import webserver.internal.PathMatcher;
 
 import static org.fest.assertions.Assertions.assertThat;
 import static org.fest.assertions.MapAssert.entry;

@@ -4,35 +4,31 @@ import com.google.common.base.Charsets;
 import com.google.common.base.Throwables;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.io.Files;
-import templating.ContentWithVariables;
-import templating.Layout;
-import templating.Template;
-import templating.YamlFrontMatter;
-import webserver.NotFoundException;
-import webserver.Response;
+import webserver.templating.ContentWithVariables;
+import webserver.templating.Layout;
+import webserver.templating.Template;
+import webserver.templating.YamlFrontMatter;
+import webserver.errors.NotFoundException;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Date;
 import java.util.Map;
 
 public abstract class AbstractResource {
-  private static final long ONE_YEAR = 1000L * 3600 * 24 * 365;
-
-  protected Response ok(Object entity, long modified) {
-    return Response.ok(entity).lastModified(new Date(modified)).expires(new Date(modified + ONE_YEAR)).header("Cache-Control", "public").build();
+  protected String templatize(File file) {
+    return templatize(file, ImmutableMap.of());
   }
 
-  protected Response ok(File file) {
-    return ok(file, file.lastModified());
+  protected String templatize(String body) {
+    return templatize(body, ImmutableMap.of());
   }
 
-  protected Response okTemplatize(File file) {
-    return ok(templatize(file, ImmutableMap.of()), file.lastModified());
+  protected String templatize(File file, Map<?, ?> variables) {
+    return templatize(read(file), variables);
   }
 
-  private String templatize(File file, Map<?, ?> variables) {
-    ContentWithVariables yaml = new YamlFrontMatter().parse(read(file));
+  protected String templatize(String body, Map<?, ?> variables) {
+    ContentWithVariables yaml = new YamlFrontMatter().parse(body);
 
     Map<String, String> yamlVariables = yaml.getVariables();
     String content = yaml.getContent();

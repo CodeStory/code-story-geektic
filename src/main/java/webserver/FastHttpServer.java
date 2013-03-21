@@ -9,6 +9,12 @@ import org.simpleframework.http.Status;
 import org.simpleframework.http.core.Container;
 import org.simpleframework.http.core.ContainerServer;
 import org.simpleframework.transport.connect.SocketConnection;
+import webserver.annotations.GET;
+import webserver.annotations.POST;
+import webserver.annotations.PathParam;
+import webserver.annotations.QueryParam;
+import webserver.errors.NotFoundException;
+import webserver.internal.PathMatcher;
 
 import java.io.File;
 import java.io.IOException;
@@ -49,14 +55,14 @@ public class FastHttpServer implements Container {
         if ("GET".equals(httpMethod)) {
           Class<?> type = resource.getClass();
           for (Method method : type.getDeclaredMethods()) {
-            if (get(path, resource, method, response)) {
+            if (get(path, resource, method, request, response)) {
               return;
             }
           }
         } else if ("POST".equals(httpMethod)) {
           Class<?> type = resource.getClass();
           for (Method method : type.getDeclaredMethods()) {
-            if (post(path, resource, method, response)) {
+            if (post(path, resource, method, request, response)) {
               return;
             }
           }
@@ -68,7 +74,7 @@ public class FastHttpServer implements Container {
       response.setCode(Status.NOT_FOUND.code);
     } catch (Exception e) {
       response.setCode(Status.INTERNAL_SERVER_ERROR.code);
-      System.err.println(e);
+      System.err.println(path + " - " + e);
     } finally {
       try {
         response.close();
@@ -78,30 +84,30 @@ public class FastHttpServer implements Container {
     }
   }
 
-  private boolean get(String path, Object resource, Method method, org.simpleframework.http.Response response) throws IllegalAccessException, InvocationTargetException, IOException {
+  private boolean get(String path, Object resource, Method method, Request request, org.simpleframework.http.Response response) throws IllegalAccessException, InvocationTargetException, IOException {
     GET annotation = method.getAnnotation(GET.class);
     if (annotation == null) {
       return false;
     }
-    return respond(annotation.path(), annotation.produces(), path, resource, method, response);
+    return respond(annotation.path(), annotation.produces(), path, resource, method, request, response);
   }
 
-  private boolean post(String path, Object resource, Method method, org.simpleframework.http.Response response) throws IllegalAccessException, InvocationTargetException, IOException {
+  private boolean post(String path, Object resource, Method method, Request request, org.simpleframework.http.Response response) throws IllegalAccessException, InvocationTargetException, IOException {
     POST annotation = method.getAnnotation(POST.class);
     if (annotation == null) {
       return false;
     }
 
-    return respond(annotation.path(), annotation.produces(), path, resource, method, response);
+    return respond(annotation.path(), annotation.produces(), path, resource, method, request, response);
   }
 
-  private boolean respond(String expectedPath, String contentType, String path, Object resource, Method method, org.simpleframework.http.Response response) throws IllegalAccessException, InvocationTargetException, IOException {
+  private boolean respond(String expectedPath, String contentType, String path, Object resource, Method method, Request request, org.simpleframework.http.Response response) throws IllegalAccessException, InvocationTargetException, IOException {
     PathMatcher.Result matcher = new PathMatcher(expectedPath).match(path);
     if (!matcher.matches) {
       return false;
     }
 
-    Object body = invokeMethod(resource, method, matcher);
+    Object body = invokeMethod(resource, method, matcher, request);
     if (body instanceof Response) {
       body = ((Response) body).getEntity();
     }
@@ -110,14 +116,21 @@ public class FastHttpServer implements Container {
     return true;
   }
 
-  private Object invokeMethod(Object resource, Method method, PathMatcher.Result matcher) throws IllegalAccessException, InvocationTargetException {
+  private Object invokeMethod(Object resource, Method method, PathMatcher.Result matcher, Request request) throws IllegalAccessException, InvocationTargetException {
     Annotation[][] annotations = method.getParameterAnnotations();
     Class<?>[] types = method.getParameterTypes();
     Object[] arguments = new Object[annotations.length];
 
     for (int i = 0; i < annotations.length; i++) {
-      String key = ((PathParam) annotations[i][0]).value();
-      arguments[i] = ConvertUtils.convert(matcher.params.get(key), types[i]);
+      Annotation annotation = annotations[i][0];
+
+      if (annotation instanceof PathParam) {
+        String key = ((PathParam) annotation).value();
+        arguments[i] = ConvertUtils.convert(matcher.params.get(key), types[i]);
+      } else if (annotation instanceof QueryParam) {
+        String key = ((QueryParam) annotation).value();
+        arguments[i] = ConvertUtils.convert(request.getQuery().get(key), types[i]);
+      }
     }
 
     return method.invoke(resource, arguments);
@@ -129,6 +142,12 @@ public class FastHttpServer implements Container {
 
     if (body instanceof Response) {
       ((Response) body).writeHeaders(response);
+      if (((Response) body).getEntity() instanceof File) {
+        response.setValue("Last-modified", Response.DATE_FORMAT.get().format(((File) ((Response) body).getEntity()).lastModified()));
+      }
+    }
+    if (body instanceof File) {
+      response.setValue("Last-modified", Response.DATE_FORMAT.get().format(((File) body).lastModified()));
     }
 
     writeBody(body, response);

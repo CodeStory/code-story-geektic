@@ -1,9 +1,38 @@
 ---
 layout: layouts/default.html
 title: CodeStory - Geektic
-script: js/controllers.js
+script: coffee/controllers.coffee
 ---
-<div class="container" ng-controller="homeController" ng-cloak>
+<div class="container-fluid" ng-controller="homeController" ng-cloak>
+    <div class="row-fluid">
+        <div class="span6 offset3">
+            <form class="form-search">
+                <input ng-change="test()" ng-model="search" type="text" class="input-medium search-query"
+                       placeholder="Type something..." autofocus="autofocus">
+                <button type="submit" class="btn">Search</button>
+            </form>
+        </div>
+        <div class="span6 offset3">
+            <table class="table table-striped">
+                <tr>
+                    <th>Photo</th>
+                    <th>Nom</th>
+                    <th>Prénom</th>
+                    <th>Ville</th>
+                    <th>Like</th>
+                    <th>Hate</th>
+                </tr>
+                <tr ng-repeat="geek in geeks">
+                    <td><img class="gravatar" ng-src="{{geek.gravatar}}?s=32"></td>
+                    <td>{{geek.nom}}</td>
+                    <td>{{geek.prenom}}</td>
+                    <td>{{geek.ville}}</td>
+                    <td>{{geek.like1}} {{geek.like2}} {{geek.like3}}</td>
+                    <td>{{geek.hate1}} {{geek.hate2}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
 </div>
 
 <footer>

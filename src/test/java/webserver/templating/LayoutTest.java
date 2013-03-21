@@ -1,4 +1,4 @@
-package templating;
+package webserver.templating;
 
 import org.junit.Test;
 

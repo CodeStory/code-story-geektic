@@ -1,4 +1,4 @@
-package webserver;
+package webserver.annotations;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -8,7 +8,9 @@ import java.lang.annotation.Target;
 
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.PARAMETER)
-public @interface PathParam {
-  String value();
+@Target(ElementType.METHOD)
+public @interface GET {
+  String path();
+
+  String produces();
 }

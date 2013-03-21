@@ -1,4 +1,4 @@
-package webserver;
+package webserver.annotations;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -8,9 +8,7 @@ import java.lang.annotation.Target;
 
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.METHOD)
-public @interface POST {
-  String path();
-
-  String produces();
+@Target(ElementType.PARAMETER)
+public @interface PathParam {
+  String value();
 }
