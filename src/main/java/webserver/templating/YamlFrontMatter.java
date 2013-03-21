@@ -11,7 +11,7 @@ public class YamlFrontMatter {
 
   public ContentWithVariables parse(String content) {
     if (StringUtils.countMatches(content, SEPARATOR) < 2) {
-      return new ContentWithVariables(content, Maps.<String, String> newHashMap());
+      return new ContentWithVariables(content, Maps.<String, String>newHashMap());
     }
     return new ContentWithVariables(stripHeader(content), parseVariables(content));
   }

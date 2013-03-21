@@ -1,10 +1,10 @@
 package resources;
 
-import webserver.compilers.CoffeeScriptCompiler;
-import webserver.annotations.GET;
-import webserver.compilers.LessCompiler;
-import webserver.annotations.PathParam;
 import webserver.Response;
+import webserver.annotations.GET;
+import webserver.annotations.PathParam;
+import webserver.compilers.CoffeeScriptCompiler;
+import webserver.compilers.LessCompiler;
 
 import javax.inject.Inject;
 

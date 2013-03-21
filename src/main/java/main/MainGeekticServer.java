@@ -3,8 +3,8 @@ package main;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Module;
-import resources.SearchResource;
 import resources.MainResource;
+import resources.SearchResource;
 import resources.StaticResource;
 import webserver.FastHttpServer;
 

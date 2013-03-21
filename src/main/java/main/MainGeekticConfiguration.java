@@ -4,8 +4,6 @@ import com.google.inject.AbstractModule;
 
 import java.io.File;
 
-import static com.google.inject.name.Names.named;
-
 public class MainGeekticConfiguration extends AbstractModule {
   private final File workingDir;
 
