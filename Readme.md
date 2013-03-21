@@ -11,7 +11,6 @@ TODO :
 
  + Nom de domaine
  + Preparer le deploiement
- + Cacher la liste si elle est vide
  + Centrer correctement le champ de recherche
  + Enlever le bouton Search
  + Améliorer le rendu avec par exemple une mosaique
