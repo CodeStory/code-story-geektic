@@ -16,43 +16,45 @@ script: controllers.coffee
                        placeholder="Qu'est-ce qui te passionne?" autofocus="autofocus">
             </form>
         </div>
-        <div id="geek2" class="span4">
-            <img class="empty" ng-class="{top: !(geeks.length>0), pastop: geeks.length>0}"
-                 src="/static/[[version]]/img/geek1.jpg">
-            <img class="result" ng-class="{pastop: !(geeks.length>0), top: geeks.length>0}"
-                 ng-src="{{geeks[0].gravatar}}?s=256">
+        <div id="geek{{i+2}}" class="span4" ng-repeat="i in [0,1]">
+            <img class="empty" ng-class="{top: !(geeks.length>i), pastop: geeks.length>i}"
+                 src="/static/[[version]]/img/geek{{i+1}}.jpg">
+            <img class="result" ng-class="{pastop: !(geeks.length>i), top: geeks.length>i}"
+                 ng-src="{{geeks[i].gravatar}}?s=256">
 
-            <div class="caption" ng-show="geeks.length>0" ng-cloak>
-                <p class="name">{{geeks[0].prenom}}</p>
+            <div class="caption" ng-show="geeks.length>i" ng-cloak>
+                <p class="name">{{geeks[i].prenom}}</p>
 
-                <p class="like">+1 {{geeks[0].like1}}, {{geeks[0].like2}}, {{geeks[0].like3}}</p>
-            </div>
-        </div>
-        <div id="geek3" class="span4">
-            <img class="empty" ng-class="{top: !(geeks.length>1), pastop: geeks.length>1}"
-                 src="/static/[[version]]/img/geek2.jpg">
-            <img class="result" ng-class="{pastop: !(geeks.length>1), top: geeks.length>1}"
-                 ng-src="{{geeks[1].gravatar}}?s=256">
-
-            <div class="caption" ng-show="geeks.length>1" ng-cloak>
-                <p class="name">{{geeks[1].prenom}}</p>
-
-                <p class="like">+1 {{geeks[1].like1}}, {{geeks[1].like2}}, {{geeks[1].like3}}</p>
+                <p class="like">+1 {{geeks[i].like1}}, {{geeks[i].like2}}, {{geeks[i].like3}}</p>
             </div>
         </div>
     </div>
     <div class="row-fluid">
-        <div id="geek4" class="span4">
-        </div>
-        <div id="geek5" class="span4">
-        </div>
-        <div id="geek6" class="span4">
+        <div id="geek{{i+2}}" class="span4" ng-repeat="i in [2,3,4]">
+            <img class="empty" ng-class="{top: !(geeks.length>i), pastop: geeks.length>i}"
+                 src="/static/[[version]]/img/geek{{i+1}}.jpg">
+            <img class="result" ng-class="{pastop: !(geeks.length>i), top: geeks.length>i}"
+                 ng-src="{{geeks[i].gravatar}}?s=256">
+
+            <div class="caption" ng-show="geeks.length>i" ng-cloak>
+                <p class="name">{{geeks[i].prenom}}</p>
+
+                <p class="like">+1 {{geeks[i].like1}}, {{geeks[i].like2}}, {{geeks[i].like3}}</p>
+            </div>
         </div>
     </div>
     <div class="row-fluid">
-        <div id="geek7" class="span4">
-        </div>
-        <div id="geek8" class="span4">
+        <div id="geek{{i+2}}" class="span4" ng-repeat="i in [5,6]">
+            <img class="empty" ng-class="{top: !(geeks.length>i), pastop: geeks.length>i}"
+                 src="/static/[[version]]/img/geek{{i+1}}.jpg">
+            <img class="result" ng-class="{pastop: !(geeks.length>i), top: geeks.length>i}"
+                 ng-src="{{geeks[i].gravatar}}?s=256">
+
+            <div class="caption" ng-show="geeks.length>i" ng-cloak>
+                <p class="name">{{geeks[i].prenom}}</p>
+
+                <p class="like">+1 {{geeks[i].like1}}, {{geeks[i].like2}}, {{geeks[i].like3}}</p>
+            </div>
         </div>
         <div id="geek9" class="span4">
             <div class="full-caption">
