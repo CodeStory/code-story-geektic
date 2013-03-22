@@ -63,26 +63,21 @@ body {
       }
     }
 
-    img.empty {
+    .empty {
       -webkit-transition: -webkit-transform 1s;
-      -webkit-transform: rotateY(0deg);
       -webkit-backface-visibility: hidden;
     }
 
-    img.result {
+    .result {
       position: relative;
       bottom: 250px;
       -webkit-transition: -webkit-transform 1s;
-      -webkit-transform: rotateY(180deg);
       -webkit-backface-visibility: hidden;
     }
 
-    .top {
-      -webkit-transform: rotateY(0deg) !important;
-    }
-
-    .pastop {
-      -webkit-transform: rotateY(180deg) !important;
+    .result, .empty {
+      width: 100%;
+      height: 100%;
     }
 
     #geek9 {
@@ -97,11 +92,6 @@ body {
       border-top: 1px solid #954d5a;
       border-left: 1px solid #954d5a;
       .background-size(cover);
-    }
-
-    img.result, img.empty {
-      width: 100%;
-      height: 100%;
     }
 
     .full-caption, .caption {
@@ -139,6 +129,25 @@ body {
       }
       p.like {
         font-weight: lighter;
+      }
+      -webkit-transition: -webkit-transform 1s;
+      -webkit-backface-visibility: hidden;
+    }
+
+    .top {
+      -webkit-transform: rotateY(0deg) !important;
+    }
+
+    .pastop {
+      -webkit-transform: rotateY(180deg) !important;
+    }
+
+    .even {
+      .top {
+        -webkit-transform: rotateX(0deg) !important;
+      }
+      .pastop {
+        -webkit-transform: rotateX(180deg) !important;
       }
     }
   }

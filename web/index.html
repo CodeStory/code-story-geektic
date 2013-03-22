@@ -17,13 +17,13 @@ script: controllers.coffee
         </form>
         </span>
     </div>
-    <div id="geek{{i+2}}" ng-repeat="i in [0,1,2,3,4,5,6]">
+    <div id="geek{{i+2}}" ng-repeat="i in [0,1,2,3,4,5,6]" ng-class-even="{even: i}">
         <img class="empty" ng-class="{top: !(geeks.length>i), pastop: geeks.length>i}"
              src="/static/[[version]]/img/geek{{i+1}}.jpg">
         <img class="result" ng-class="{pastop: !(geeks.length>i), top: geeks.length>i}"
              ng-src="{{geeks[i].gravatar}}?s=256">
 
-        <div class="caption" ng-show="geeks.length>i" ng-cloak>
+        <div class="caption" ng-class="{pastop: !(geeks.length>i), top: geeks.length>i}" ng-cloak>
             <p class="name">{{geeks[i].prenom}}</p>
 
             <p class="like">+1 {{geeks[i].like1}}, {{geeks[i].like2}}, {{geeks[i].like3}}</p>
