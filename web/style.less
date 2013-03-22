@@ -10,7 +10,12 @@
   display: none !important;
 }
 
-@import url(http://fonts.googleapis.com/css?family=Wendy+One);
+@font-face {
+  font-family: 'Wendy One';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Wendy One'), local('WendyOne-Regular'), url(http://themes.googleusercontent.com/static/fonts/wendyone/v1/oRf9i5HKN7RZoSnys4E2urO3LdcAZYWl9Si6vvxL-qU.woff) format('woff');
+}
 
 body {
   background-color: @white;
@@ -20,9 +25,14 @@ body {
     text-align: center;
   }
 
+  h4 {
+    padding: 5px;
+  }
+
   .form-search {
     text-align: center;
     input {
+      width: 200px;
     }
   }
 
@@ -32,6 +42,12 @@ body {
 
   #geek2 {
     background: url('/static/[[version]]/img/geek2.jpg') no-repeat;
+    -webkit-transition: -webkit-transform 1s;
+    -webkit-transform: rotateY(0deg);
+  }
+
+  #geek2:hover {
+    -webkit-transform: rotateY(180deg);
   }
 
   #geek3 {
@@ -51,7 +67,7 @@ body {
   }
 
   #geek7 {
-    background: url('/static/[[version]]/img/geek4.jpg') no-repeat;
+    background: url('/static/[[version]]/img/geek1.jpg') no-repeat;
   }
 
   #geek8 {
@@ -68,14 +84,9 @@ body {
     .background-size(cover);
   }
 
-  .result {
+  img.result {
     width: 100%;
     height: 100%;
-  }
-
-  img.gravatar {
-    width: 128px;
-    height: 128px;
   }
 
   .full-caption, .caption {
@@ -100,11 +111,19 @@ body {
 
   .caption {
     position: relative;
-    bottom: 30px;
-    height: 30px;
+    bottom: 60px;
+    height: 60px;
+    overflow: hidden;
 
-    span {
-      padding: 10px;
+    p {
+      padding: 5px;
+      margin: 0;
+    }
+    p.name {
+      font-weight: bold;
+    }
+    p.like {
+      font-weight: lighter;
     }
   }
 }

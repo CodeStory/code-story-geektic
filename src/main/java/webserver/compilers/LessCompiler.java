@@ -14,11 +14,13 @@ public class LessCompiler {
     this.compiler = new org.lesscss.LessCompiler();
   }
 
-  public synchronized String compile(File file) throws IOException {
+  public synchronized String compile(File file) {
     try {
       return compiler.compile(Files.toString(file, Charsets.UTF_8));
+    } catch (IOException e) {
+      throw new IllegalStateException("Unable to read less file", e);
     } catch (LessException e) {
-      throw new IOException("Invalid less file", e);
+      throw new IllegalStateException("Invalid less file", e);
     }
   }
 }

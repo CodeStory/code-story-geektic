@@ -1,15 +1,18 @@
 package resources;
 
-import webserver.annotations.GET;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.Response;
 
+import java.io.File;
+
+@Path("/")
 public class MainResource extends AbstractResource {
-  @GET(path = "/", produces = "text/html;charset=UTF-8")
-  public String index() {
-    return templatize(file("index.html"));
-  }
-
-  @GET(path = "/appcache.manifest", produces = "text/cache-manifest;charset=UTF-8")
-  public String appcache() {
-    return templatize(file("appcache.manifest"));
+  @GET
+  @Produces("text/html;charset=UTF-8")
+  public Response index() {
+    File file = file("index.html");
+    return ok(templatize(read(file)), file.lastModified());
   }
 }

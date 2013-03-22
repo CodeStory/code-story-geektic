@@ -4,32 +4,28 @@ import com.google.common.base.Charsets;
 import com.google.common.base.Throwables;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.io.Files;
-import webserver.Response;
-import webserver.errors.NotFoundException;
+import com.sun.jersey.api.NotFoundException;
 import webserver.templating.ContentWithVariables;
 import webserver.templating.Layout;
 import webserver.templating.Template;
 import webserver.templating.YamlFrontMatter;
 
+import javax.ws.rs.core.Response;
+
 import java.io.File;
 import java.io.IOException;
+import java.util.Date;
 import java.util.Map;
 
 public abstract class AbstractResource {
-  protected Response ok(Object entity) {
-    return Response.ok(entity);
-  }
+  private static final long ONE_YEAR = 1000L * 3600 * 24 * 365;
 
-  protected String templatize(File file) {
-    return templatize(file, ImmutableMap.of());
+  protected Response ok(Object entity, long modified) {
+    return Response.ok(entity).lastModified(new Date(modified)).expires(new Date(modified + ONE_YEAR)).header("Cache-Control", "public").build();
   }
 
   protected String templatize(String body) {
     return templatize(body, ImmutableMap.of());
-  }
-
-  protected String templatize(File file, Map<?, ?> variables) {
-    return templatize(read(file), variables);
   }
 
   protected String templatize(String body, Map<?, ?> variables) {
@@ -52,6 +48,10 @@ public abstract class AbstractResource {
     } catch (IOException e) {
       throw Throwables.propagate(e);
     }
+  }
+
+  protected File file(String parent, String path) {
+    return file(new File(parent, path).getPath());
   }
 
   protected File file(String path) {

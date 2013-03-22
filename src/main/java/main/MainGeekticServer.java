@@ -3,15 +3,21 @@ package main;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Module;
+import com.sun.jersey.api.container.filter.GZIPContentEncodingFilter;
+import com.sun.jersey.api.core.DefaultResourceConfig;
+import com.sun.jersey.api.core.ResourceConfig;
+import com.sun.jersey.simple.container.SimpleServerFactory;
+import org.codehaus.jackson.jaxrs.JacksonJsonProvider;
 import resources.MainResource;
 import resources.SearchResource;
 import resources.StaticResource;
-import webserver.FastHttpServer;
 
 import java.io.File;
 import java.io.IOException;
 
 import static com.google.common.base.Objects.firstNonNull;
+import static com.sun.jersey.api.core.ResourceConfig.PROPERTY_CONTAINER_REQUEST_FILTERS;
+import static com.sun.jersey.api.core.ResourceConfig.PROPERTY_CONTAINER_RESPONSE_FILTERS;
 import static java.lang.Integer.parseInt;
 
 public class MainGeekticServer {
@@ -26,17 +32,27 @@ public class MainGeekticServer {
 
     Module configuration = new MainGeekticConfiguration(new File("."));
 
-    MainGeekticServer server = new MainGeekticServer(configuration);
-    server.start(port);
+    new MainGeekticServer(configuration).start(port);
   }
 
   public void start(int port) throws IOException {
     System.out.println("Starting server on port: " + port);
 
-    new FastHttpServer(
-      injector.getInstance(StaticResource.class),
-      injector.getInstance(MainResource.class),
-      injector.getInstance(SearchResource.class)
-    ).start(port);
+    SimpleServerFactory.create("http://localhost:" + port, configuration());
+  }
+
+  private ResourceConfig configuration() {
+    DefaultResourceConfig config = new DefaultResourceConfig();
+
+    config.getClasses().add(JacksonJsonProvider.class);
+
+    config.getSingletons().add(injector.getInstance(SearchResource.class));
+    config.getSingletons().add(injector.getInstance(MainResource.class));
+    config.getSingletons().add(injector.getInstance(StaticResource.class));
+
+    config.getProperties().put(PROPERTY_CONTAINER_REQUEST_FILTERS, GZIPContentEncodingFilter.class);
+    config.getProperties().put(PROPERTY_CONTAINER_RESPONSE_FILTERS, GZIPContentEncodingFilter.class);
+
+    return config;
   }
 }

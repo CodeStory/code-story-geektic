@@ -1,17 +1,18 @@
 package resources;
 
-import com.google.common.io.Files;
-import webserver.Response;
-import webserver.annotations.GET;
-import webserver.annotations.PathParam;
 import webserver.compilers.CoffeeScriptCompiler;
 import webserver.compilers.LessCompiler;
 
 import javax.inject.Inject;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.Response;
 
 import java.io.File;
-import java.io.IOException;
 
+@Path("/static/{version}")
 public class StaticResource extends AbstractResource {
   private final LessCompiler lessCompiler;
   private final CoffeeScriptCompiler coffeeScriptCompiler;
@@ -22,32 +23,47 @@ public class StaticResource extends AbstractResource {
     this.lessCompiler = lessCompiler;
   }
 
-  @GET(path = "/static/{version}/css/{path}", produces = "text/css;charset=UTF-8")
-  public File css(@PathParam("path") String path) throws IOException {
-    return file("static/css/" + path);
+  @GET
+  @Path("{path : .*\\.css}")
+  @Produces("text/css;charset=UTF-8")
+  public File css(@PathParam("path") String path) {
+    return file("static", path);
   }
 
-  @GET(path = "/static/{version}/js/{path}", produces = "application/javascript;charset=UTF-8")
-  public File js(@PathParam("path") String path) throws IOException {
-    return file("static/js/" + path);
+  @GET
+  @Path("{path : .*\\.js}")
+  @Produces("application/javascript;charset=UTF-8")
+  public File js(@PathParam("path") String path) {
+    return file("static", path);
   }
 
-  @GET(path = "/static/{version}/img/{path}")
-  public Response png(@PathParam("path") String path) {
-    String contentType = "image/" + Files.getFileExtension(path);
-
-    return ok(file("static/img/" + path)).header("Content-type", contentType);
-  }
-
-  @GET(path = "/static/{version}/less/{path}", produces = "text/css;charset=UTF-8")
-  public Response less(@PathParam("path") String path) throws IOException {
+  @GET
+  @Path("{path : .*\\.less}")
+  @Produces("text/css;charset=UTF-8")
+  public Response less(@PathParam("path") String path) {
     File less = file(path);
-    return ok(templatize(lessCompiler.compile(less))).lastModified(less);
+    return ok(templatize(lessCompiler.compile(less)), less.lastModified());
   }
 
-  @GET(path = "/static/{version}/coffee/{path}", produces = "application/javascript;charset=UTF-8")
-  public Response coffee(@PathParam("path") String path) throws IOException {
+  @GET
+  @Path("{path : .*\\.coffee}")
+  @Produces("application/javascript;charset=UTF-8")
+  public Response coffee(@PathParam("path") String path) {
     File coffee = file(path);
-    return ok(coffeeScriptCompiler.compile(coffee)).lastModified(coffee);
+    return ok(coffeeScriptCompiler.compile(coffee), coffee.lastModified());
+  }
+
+  @GET
+  @Path("{path : .*\\.png}")
+  @Produces("image/png")
+  public File png(@PathParam("path") String path) {
+    return file("static", path);
+  }
+
+  @GET
+  @Path("{path : .*\\.jpg}")
+  @Produces("image/jpeg")
+  public File jpg(@PathParam("path") String path) {
+    return file("static", path);
   }
 }

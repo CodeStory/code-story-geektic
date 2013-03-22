@@ -18,11 +18,13 @@ public class CoffeeScriptCompiler {
     compiler = new JCoffeeScriptCompiler(asList(Option.BARE));
   }
 
-  public synchronized String compile(File file) throws IOException {
+  public synchronized String compile(File file) {
     try {
       return compiler.compile(Files.toString(file, Charsets.UTF_8));
+    } catch (IOException e) {
+      throw new IllegalStateException("Unable to read coffeescript file", e);
     } catch (JCoffeeScriptCompileException e) {
-      throw new IOException("Invalid coffeescript", e);
+      throw new IllegalStateException("Invalid coffeescript file", e);
     }
   }
 }

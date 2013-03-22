@@ -18,8 +18,6 @@ public abstract class AbstractPageTest extends PhantomJsTest {
   private static int port;
   private static MainGeekticServer server;
 
-  protected static Random random = spy(new Random(0));
-
   @Before
   public void startServerOnce() {
     if (server != null) {
@@ -43,7 +41,6 @@ public abstract class AbstractPageTest extends PhantomJsTest {
     return new AbstractModule() {
       @Override
       protected void configure() {
-        bind(Random.class).toInstance(random);
       }
     };
   }
