@@ -17,7 +17,10 @@ script: controllers.coffee
             </form>
         </div>
         <div id="geek2" class="span4">
-            <img class="result" ng-show="geeks.length>0" ng-src="{{geeks[0].gravatar}}?s=256">
+            <img class="empty" ng-class="{top: !(geeks.length>0), pastop: geeks.length>0}"
+                 src="/static/[[version]]/img/geek1.jpg">
+            <img class="result" ng-class="{pastop: !(geeks.length>0), top: geeks.length>0}"
+                 ng-src="{{geeks[0].gravatar}}?s=256">
 
             <div class="caption" ng-show="geeks.length>0" ng-cloak>
                 <p class="name">{{geeks[0].prenom}}</p>
@@ -26,6 +29,16 @@ script: controllers.coffee
             </div>
         </div>
         <div id="geek3" class="span4">
+            <img class="empty" ng-class="{top: !(geeks.length>1), pastop: geeks.length>1}"
+                 src="/static/[[version]]/img/geek2.jpg">
+            <img class="result" ng-class="{pastop: !(geeks.length>1), top: geeks.length>1}"
+                 ng-src="{{geeks[1].gravatar}}?s=256">
+
+            <div class="caption" ng-show="geeks.length>1" ng-cloak>
+                <p class="name">{{geeks[1].prenom}}</p>
+
+                <p class="like">+1 {{geeks[1].like1}}, {{geeks[1].like2}}, {{geeks[1].like3}}</p>
+            </div>
         </div>
     </div>
     <div class="row-fluid">

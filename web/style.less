@@ -40,18 +40,26 @@ body {
     background-color: @green;
   }
 
-  #geek2 {
-    background: url('/static/[[version]]/img/geek2.jpg') no-repeat;
+  img.empty {
     -webkit-transition: -webkit-transform 1s;
     -webkit-transform: rotateY(0deg);
+    -webkit-backface-visibility: hidden;
   }
 
-  #geek2:hover {
+  img.result {
+    position: relative;
+    bottom: 250px;
+    -webkit-transition: -webkit-transform 1s;
     -webkit-transform: rotateY(180deg);
+    -webkit-backface-visibility: hidden;
   }
 
-  #geek3 {
-    background: url('/static/[[version]]/img/geek3.jpg') no-repeat;
+  .top {
+    -webkit-transform: rotateY(0deg) !important;
+  }
+
+  .pastop {
+    -webkit-transform: rotateY(180deg) !important;
   }
 
   #geek4 {
@@ -84,7 +92,7 @@ body {
     .background-size(cover);
   }
 
-  img.result {
+  img.result, img.empty {
     width: 100%;
     height: 100%;
   }
@@ -111,7 +119,7 @@ body {
 
   .caption {
     position: relative;
-    bottom: 60px;
+    bottom: 310px;
     height: 60px;
     overflow: hidden;
 
