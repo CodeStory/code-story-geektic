@@ -18,11 +18,13 @@ import java.util.zip.ZipFile;
 class PhantomJsDownloader {
   private final boolean isWindows;
   private final boolean isMac;
+  private final boolean isLinux64;
 
   PhantomJsDownloader() {
     String osName = System.getProperty("os.name");
     isWindows = osName.startsWith("Windows");
     isMac = osName.startsWith("Mac OS X") || osName.startsWith("Darwin");
+    isLinux64 = System.getProperty("sun.arch.data.model").equals("64");
   }
 
   public File downloadAndExtract() {
@@ -36,9 +38,12 @@ class PhantomJsDownloader {
     } else if (isMac) {
       url = "http://phantomjs.googlecode.com/files/phantomjs-1.8.1-macosx.zip";
       phantomJsExe = new File(installDir, "phantomjs-1.8.1-macosx/bin/phantomjs");
-    } else {
+    } else if (isLinux64) {
       url = "http://phantomjs.googlecode.com/files/phantomjs-1.8.1-linux-x86_64.tar.bz2";
       phantomJsExe = new File(installDir, "phantomjs-1.8.1-linux-x86_64/bin/phantomjs");
+    } else {
+      url = "http://phantomjs.googlecode.com/files/phantomjs-1.8.1-linux-i686.tar.bz2";
+      phantomJsExe = new File(installDir, "phantomjs-1.8.1-linux-i686/bin/phantomjs");
     }
 
     extractExe(url, installDir, phantomJsExe);
@@ -61,7 +66,7 @@ class PhantomJsDownloader {
       } else if (isMac) {
         new ProcessBuilder().command("/usr/bin/unzip", "-qo", "phantomjs.zip").directory(phantomInstallDir).start().waitFor();
       } else {
-        new ProcessBuilder().command("/usr/bin/tar", "-xjvf", "phantomjs.zip").directory(phantomInstallDir).start().waitFor();
+        new ProcessBuilder().command("tar", "-xjvf", "phantomjs.zip").directory(phantomInstallDir).start().waitFor();
       }
     } catch (Exception e) {
       throw new IllegalStateException("Unable to unzip phantomjs from " + targetZip.getAbsolutePath());
