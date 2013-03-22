@@ -1,8 +1,8 @@
 @white: #FFFFFF;
 @black: #000000;
 @gray: #EEEEEE;
-@yellow: rgb(242, 217, 153);
-@green: rgb(142, 217, 153);
+@yellow: rgb(242, 50, 48);
+@green: rgb(217, 141, 166);
 @blue: rgb(0, 163, 219);
 @star_size: 64px;
 
@@ -11,15 +11,27 @@
 }
 
 @font-face {
-  font-family: 'Wendy One';
+  font-family: 'Kranky';
   font-style: normal;
   font-weight: 400;
-  src: local('Wendy One'), local('WendyOne-Regular'), url(http://themes.googleusercontent.com/static/fonts/wendyone/v1/oRf9i5HKN7RZoSnys4E2urO3LdcAZYWl9Si6vvxL-qU.woff) format('woff');
+  src: local('Kranky'), url(http://themes.googleusercontent.com/static/fonts/kranky/v3/wv_FP3njkHr-QOxKLpPxYevvDin1pK8aKteLpeZ5c0A.woff) format('woff');
+}
+
+html {
+  width: 100%;
+  background-image: url('/static/[[version]]/img/noise.png'), -webkit-gradient(radial, 50% 0%, 0, 50% 0%, 750, color-stop(0%, @green), color-stop(100%, @yellow));
+  background-image: url('/static/[[version]]/img/noise.png'), -webkit-radial-gradient(top center, @green, @yellow 750px);
+  background-image: url('/static/[[version]]/img/noise.png'), -moz-radial-gradient(top center, @green, @yellow 750px);
+  background-image: url('/static/[[version]]/img/noise.png'), -o-radial-gradient(top center, @green, @yellow 750px);
+  background-image: url('/static/[[version]]/img/noise.png'), -ms-radial-gradient(top center, @green, @yellow 750px);
+  background-image: url('/static/[[version]]/img/noise.png'), radial-gradient(top center, @green, @yellow 750px);
+  padding-top: 20px;
+  min-height: 1024px;
 }
 
 body {
-  background-color: @white;
-  font-family: 'Wendy One', sans-serif;
+  background-color: transparent;
+  font-family: 'Kranky', cursive;
 
   #main {
     margin: 0 auto;
@@ -42,7 +54,8 @@ body {
     }
 
     #geek1 {
-      background-color: @green;
+      background-color: @blue;
+      -webkit-transform: rotateZ(-5deg) translateX(-20px) translateY(-20px);
 
       span {
         display: block;
@@ -80,7 +93,9 @@ body {
       width: 250px;
       height: 250px;
       float: left;
-      margin: 2px; //border: solid grey 1px;
+      margin: 0;
+      border-top: 1px solid #954d5a;
+      border-left: 1px solid #954d5a;
       .background-size(cover);
     }
 
