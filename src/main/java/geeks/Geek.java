@@ -28,6 +28,9 @@ public class Geek {
     if (Strings.isNullOrEmpty(search)) {
       return false;
     }
+    if (search.length() < 3) {
+      return false;
+    }
     return matchesAny(search, like1, like2, like3);
   }
 
