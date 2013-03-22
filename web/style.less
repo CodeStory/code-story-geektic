@@ -21,97 +21,110 @@ body {
   background-color: @white;
   font-family: 'Wendy One', sans-serif;
 
-  .title, h4 {
-    text-align: center;
-  }
+  #main {
+    margin: 0 auto;
+    width: 762px;
+    height: 762px;
 
-  h4 {
-    padding: 5px;
-  }
-
-  .form-search {
-    text-align: center;
-    input {
-      width: 200px;
+    .title, h4 {
+      text-align: center;
     }
-  }
 
-  #geek1 {
-    background-color: @green;
-  }
+    h4 {
+      padding: 5px;
+    }
 
-  img.empty {
-    -webkit-transition: -webkit-transform 1s;
-    -webkit-transform: rotateY(0deg);
-    -webkit-backface-visibility: hidden;
-  }
-
-  img.result {
-    position: relative;
-    bottom: 250px;
-    -webkit-transition: -webkit-transform 1s;
-    -webkit-transform: rotateY(180deg);
-    -webkit-backface-visibility: hidden;
-  }
-
-  .top {
-    -webkit-transform: rotateY(0deg) !important;
-  }
-
-  .pastop {
-    -webkit-transform: rotateY(180deg) !important;
-  }
-
-  #geek9 {
-    background: url('/static/[[version]]/img/geek8.jpg') no-repeat;
-  }
-
-  #geek1, #geek2, #geek3, #geek4, #geek5, #geek6, #geek7, #geek8, #geek9 {
-    height: 250px;
-    margin: 2px; //border: solid grey 1px;
-    .background-size(cover);
-  }
-
-  img.result, img.empty {
-    width: 100%;
-    height: 100%;
-  }
-
-  .full-caption, .caption {
-    background-color: rgba(0, 0, 0, 0.8);
-    color: @white;
-    text-align: left;
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    padding: 0;
-
-    .inner {
-      margin: 0;
-      padding: 10px;
-
-      h3 {
-        margin: 0;
-        padding: 0;
+    .form-search {
+      text-align: center;
+      input {
+        width: 200px;
       }
     }
-  }
 
-  .caption {
-    position: relative;
-    bottom: 310px;
-    height: 60px;
-    overflow: hidden;
+    #geek1 {
+      background-color: @green;
 
-    p {
-      padding: 5px;
+      span {
+        display: block;
+        margin-top: 50px;
+      }
+    }
+
+    img.empty {
+      -webkit-transition: -webkit-transform 1s;
+      -webkit-transform: rotateY(0deg);
+      -webkit-backface-visibility: hidden;
+    }
+
+    img.result {
+      position: relative;
+      bottom: 250px;
+      -webkit-transition: -webkit-transform 1s;
+      -webkit-transform: rotateY(180deg);
+      -webkit-backface-visibility: hidden;
+    }
+
+    .top {
+      -webkit-transform: rotateY(0deg) !important;
+    }
+
+    .pastop {
+      -webkit-transform: rotateY(180deg) !important;
+    }
+
+    #geek9 {
+      background: url('/static/[[version]]/img/geek8.jpg') no-repeat;
+    }
+
+    #geek1, #geek2, #geek3, #geek4, #geek5, #geek6, #geek7, #geek8, #geek9 {
+      width: 250px;
+      height: 250px;
+      float: left;
+      margin: 2px; //border: solid grey 1px;
+      .background-size(cover);
+    }
+
+    img.result, img.empty {
+      width: 100%;
+      height: 100%;
+    }
+
+    .full-caption, .caption {
+      background-color: rgba(0, 0, 0, 0.8);
+      color: @white;
+      text-align: left;
+      width: 100%;
+      height: 100%;
       margin: 0;
+      padding: 0;
+
+      .inner {
+        margin: 0;
+        padding: 10px;
+
+        h3 {
+          margin: 0;
+          padding: 0;
+        }
+      }
     }
-    p.name {
-      font-weight: bold;
-    }
-    p.like {
-      font-weight: lighter;
+
+    .caption {
+      position: relative;
+      bottom: 310px;
+      height: 60px;
+      overflow: hidden;
+
+      p {
+        padding: 5px;
+        margin: 0;
+      }
+      p.name {
+        font-weight: bold;
+      }
+      p.like {
+        font-weight: lighter;
+      }
     }
   }
 }

@@ -3,68 +3,40 @@ layout: layouts/default.html
 title: CodeStory - Geektic
 script: controllers.coffee
 ---
-<div class="container-fluid" ng-controller="homeController">
-    <div class="row-fluid">
-        <div id="geek1" class="span4">
-            <h1 class="title">G33kt1c</h1>
+<div id="main" ng-controller="homeController">
+    <div id="geek1">
+        <span>
+        <h1 class="title">G33kt1c</h1>
 
-            <h4>Le site de rencontre pour les geeks en conférence.</h4>
+        <h4>Le site de rencontre pour les geeks en conférence.</h4>
 
-            <form class="form-search">
-                <input ng-change="doSearch()" ng-model="search" type="text"
-                       class="input-medium search-query"
-                       placeholder="Qu'est-ce qui te passionne?" autofocus="autofocus">
-            </form>
-        </div>
-        <div id="geek{{i+2}}" class="span4" ng-repeat="i in [0,1]">
-            <img class="empty" ng-class="{top: !(geeks.length>i), pastop: geeks.length>i}"
-                 src="/static/[[version]]/img/geek{{i+1}}.jpg">
-            <img class="result" ng-class="{pastop: !(geeks.length>i), top: geeks.length>i}"
-                 ng-src="{{geeks[i].gravatar}}?s=256">
+        <form class="form-search">
+            <input ng-change="doSearch()" ng-model="search" type="text"
+                   class="input-medium search-query"
+                   placeholder="Qu'est-ce qui te passionne?" autofocus="autofocus">
+        </form>
+        </span>
+    </div>
+    <div id="geek{{i+2}}" ng-repeat="i in [0,1,2,3,4,5,6]">
+        <img class="empty" ng-class="{top: !(geeks.length>i), pastop: geeks.length>i}"
+             src="/static/[[version]]/img/geek{{i+1}}.jpg">
+        <img class="result" ng-class="{pastop: !(geeks.length>i), top: geeks.length>i}"
+             ng-src="{{geeks[i].gravatar}}?s=256">
 
-            <div class="caption" ng-show="geeks.length>i" ng-cloak>
-                <p class="name">{{geeks[i].prenom}}</p>
+        <div class="caption" ng-show="geeks.length>i" ng-cloak>
+            <p class="name">{{geeks[i].prenom}}</p>
 
-                <p class="like">+1 {{geeks[i].like1}}, {{geeks[i].like2}}, {{geeks[i].like3}}</p>
-            </div>
+            <p class="like">+1 {{geeks[i].like1}}, {{geeks[i].like2}}, {{geeks[i].like3}}</p>
         </div>
     </div>
-    <div class="row-fluid">
-        <div id="geek{{i+2}}" class="span4" ng-repeat="i in [2,3,4]">
-            <img class="empty" ng-class="{top: !(geeks.length>i), pastop: geeks.length>i}"
-                 src="/static/[[version]]/img/geek{{i+1}}.jpg">
-            <img class="result" ng-class="{pastop: !(geeks.length>i), top: geeks.length>i}"
-                 ng-src="{{geeks[i].gravatar}}?s=256">
+    <div id="geek9">
+        <div class="full-caption">
+            <div class="inner">
+                <h3>Lorem Ipsum</h3>
 
-            <div class="caption" ng-show="geeks.length>i" ng-cloak>
-                <p class="name">{{geeks[i].prenom}}</p>
-
-                <p class="like">+1 {{geeks[i].like1}}, {{geeks[i].like2}}, {{geeks[i].like3}}</p>
-            </div>
-        </div>
-    </div>
-    <div class="row-fluid">
-        <div id="geek{{i+2}}" class="span4" ng-repeat="i in [5,6]">
-            <img class="empty" ng-class="{top: !(geeks.length>i), pastop: geeks.length>i}"
-                 src="/static/[[version]]/img/geek{{i+1}}.jpg">
-            <img class="result" ng-class="{pastop: !(geeks.length>i), top: geeks.length>i}"
-                 ng-src="{{geeks[i].gravatar}}?s=256">
-
-            <div class="caption" ng-show="geeks.length>i" ng-cloak>
-                <p class="name">{{geeks[i].prenom}}</p>
-
-                <p class="like">+1 {{geeks[i].like1}}, {{geeks[i].like2}}, {{geeks[i].like3}}</p>
-            </div>
-        </div>
-        <div id="geek9" class="span4">
-            <div class="full-caption">
-                <div class="inner">
-                    <h3>Lorem Ipsum</h3>
-
-                    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit,sed diam
-                        nonummy nibh euismod tincidunt ut laoreet
-                        dolore magna aliquam erat volutpat.</p>
-                </div>
+                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit,sed diam
+                    nonummy nibh euismod tincidunt ut laoreet
+                    dolore magna aliquam erat volutpat.</p>
             </div>
         </div>
     </div>
