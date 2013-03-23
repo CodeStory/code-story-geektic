@@ -3,41 +3,42 @@ layout: layouts/default.html
 title: CodeStory - Geektic
 script: controllers.coffee
 ---
+
 <div id="main" ng-controller="homeController">
-    <div id="geek1">
-        <span>
-        <h1 class="title">G33kt1c</h1>
+    <div id="search" class="square">
+        <h1>G33kt1c</h1>
 
         <h4>Le site de rencontre pour les geeks en conférence.</h4>
 
-        <form class="form-search">
-            <input ng-change="doSearch()" ng-model="search" type="text"
-                   class="input-medium search-query"
-                   placeholder="Qu'est-ce qui te passionne?" autofocus="autofocus">
+        <form>
+            <input ng-change="doSearch()" ng-model="search" type="text" placeholder="Qu'est-ce qui te passionne?"
+                   autofocus="autofocus">
         </form>
-        </span>
     </div>
-    <div id="geek{{i+2}}" ng-repeat="i in [0,1,2,3,4,5,6]" ng-class-even="{even: i}">
-        <img class="empty" ng-class="{top: !(geeks.length>i), pastop: geeks.length>i}"
-             src="/static/[[version]]/img/geek{{i+1}}.jpg">
-        <img class="result" ng-class="{pastop: !(geeks.length>i), top: geeks.length>i}"
-             ng-src="{{geeks[i].gravatar}}?s=256">
 
-        <div class="caption" ng-class="{pastop: !(geeks.length>i), top: geeks.length>i}" ng-cloak>
-            <p class="name">{{geeks[i].prenom}}</p>
+    <div class="square" ng-repeat="i in [0,1,2,3,4,5,6]" ng-class-even="{even: i}" ng-cloak>
+        <div class="image" ng-class="{shown: geeks.length<=i, hidden: geeks.length>i}">
+            <img ng-src="/static/[[version]]/img/geek{{i}}.jpg">
+        </div>
 
-            <p class="like">+1 {{geeks[i].like1}}, {{geeks[i].like2}}, {{geeks[i].like3}}</p>
+        <div class="image" ng-class="{hidden: geeks.length<=i, shown: geeks.length>i}">
+            <img class="result" ng-src="{{latestgeeks[i].gravatar}}?s=256">
+
+            <div class="caption">
+                <p class="name">{{latestgeeks[i].prenom}}</p>
+
+                <p class="like">+1 {{latestgeeks[i].like1}}, {{latestgeeks[i].like2}}, {{latestgeeks[i].like3}}</p>
+            </div>
         </div>
     </div>
-    <div id="geek9">
-        <div class="full-caption">
-            <div class="inner">
-                <h3>Lorem Ipsum</h3>
 
-                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit,sed diam
-                    nonummy nibh euismod tincidunt ut laoreet
-                    dolore magna aliquam erat volutpat.</p>
-            </div>
+    <div id="intro" class="square">
+        <div class="full-caption">
+            <h3>Lorem Ipsum</h3>
+
+            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
+                sed diam nonummy nibh euismod tincidunt ut laoreet
+                dolore magna aliquam erat volutpat.</p>
         </div>
     </div>
 </div>

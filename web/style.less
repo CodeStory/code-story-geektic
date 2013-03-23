@@ -1,10 +1,10 @@
 @white: #FFFFFF;
 @black: #000000;
-@gray: #EEEEEE;
-@yellow: rgb(242, 50, 48);
-@green: rgb(217, 141, 166);
+@red: rgb(242, 50, 48);
+@pink: rgb(217, 141, 166);
 @blue: rgb(0, 163, 219);
-@star_size: 64px;
+@square_width: 250px;
+@square_height: 250px;
 
 [ng-cloak] {
   display: none !important;
@@ -19,12 +19,11 @@
 
 html {
   width: 100%;
-  background-image: url('/static/[[version]]/img/noise.png'), -webkit-gradient(radial, 50% 0%, 0, 50% 0%, 750, color-stop(0%, @green), color-stop(100%, @yellow));
-  background-image: url('/static/[[version]]/img/noise.png'), -webkit-radial-gradient(top center, @green, @yellow 750px);
-  background-image: url('/static/[[version]]/img/noise.png'), -moz-radial-gradient(top center, @green, @yellow 750px);
-  background-image: url('/static/[[version]]/img/noise.png'), -o-radial-gradient(top center, @green, @yellow 750px);
-  background-image: url('/static/[[version]]/img/noise.png'), -ms-radial-gradient(top center, @green, @yellow 750px);
-  background-image: url('/static/[[version]]/img/noise.png'), radial-gradient(top center, @green, @yellow 750px);
+  background-image: url('/static/[[version]]/img/noise.png'), -webkit-gradient(radial, 50% 0%, 0, 50% 0%, 750, color-stop(0%, @pink), color-stop(100%, @red));
+  background-image: url('/static/[[version]]/img/noise.png'), -webkit-radial-gradient(top center, @pink, @red 750px);
+  background-image: url('/static/[[version]]/img/noise.png'), -moz-radial-gradient(top center, @pink, @red 750px);
+  background-image: url('/static/[[version]]/img/noise.png'), -ms-radial-gradient(top center, @pink, @red 750px);
+  background-image: url('/static/[[version]]/img/noise.png'), radial-gradient(top center, @pink, @red 750px);
   padding-top: 20px;
   min-height: 1024px;
 }
@@ -38,116 +37,88 @@ body {
     width: 762px;
     height: 762px;
 
-    .title, h4 {
-      text-align: center;
-    }
-
-    h4 {
-      padding: 5px;
-    }
-
-    .form-search {
-      text-align: center;
-      input {
-        width: 200px;
-      }
-    }
-
-    #geek1 {
+    #search {
       background-color: @blue;
-      -webkit-transform: rotateZ(-5deg) translateX(-20px) translateY(-20px);
+      text-align: center;
+      .transform(rotateZ(-5deg) translateX(-20px) translateY(-20px));
 
-      span {
-        display: block;
+      h1 {
         margin-top: 50px;
       }
+
+      h4 {
+        padding: 5px;
+      }
     }
 
-    .empty {
-      -webkit-transition: -webkit-transform 1s;
-      -webkit-backface-visibility: hidden;
+    .image, .result, .square {
+      width: @square_width;
+      height: @square_height;
+    }
+
+    .image {
+      .transition(-webkit-transform 1s);
+      .backface-visibility(hidden);
     }
 
     .result {
       position: relative;
-      bottom: 250px;
-      -webkit-transition: -webkit-transform 1s;
-      -webkit-backface-visibility: hidden;
+      bottom: @square_height;
     }
 
-    .result, .empty {
-      width: 100%;
-      height: 100%;
-    }
-
-    #geek9 {
-      background: url('/static/[[version]]/img/geek8.jpg') no-repeat;
-    }
-
-    #geek1, #geek2, #geek3, #geek4, #geek5, #geek6, #geek7, #geek8, #geek9 {
-      width: 250px;
-      height: 250px;
+    .square {
       float: left;
       margin: 0;
       border-top: 1px solid #954d5a;
       border-left: 1px solid #954d5a;
-      .background-size(cover);
     }
 
-    .full-caption, .caption {
-      background-color: rgba(0, 0, 0, 0.8);
-      color: @white;
-      text-align: left;
-      width: 100%;
-      height: 100%;
-      margin: 0;
-      padding: 0;
+    #intro {
+      .back('/static/[[version]]/img/geek7.jpg', @square_width, @square_height);
 
-      .inner {
-        margin: 0;
-        padding: 10px;
+      .full-caption {
+        background-color: rgba(0, 0, 0, .8);
+        color: @white;
+        width: 100%;
+        height: 100%;
 
-        h3 {
+        h3, p {
           margin: 0;
-          padding: 0;
+          padding: 10px 10px 0 10px;
         }
       }
     }
 
     .caption {
-      position: relative;
-      bottom: 310px;
+      background-color: rgba(0, 0, 0, .8);
+      color: @white;
       height: 60px;
+      position: relative;
+      bottom: @square_height+60px;
       overflow: hidden;
+      line-height: 1.2em;
 
       p {
-        padding: 5px;
+        padding: 4px;
         margin: 0;
       }
-      p.name {
-        font-weight: bold;
-      }
-      p.like {
-        font-weight: lighter;
-      }
-      -webkit-transition: -webkit-transform 1s;
-      -webkit-backface-visibility: hidden;
     }
 
-    .top {
-      -webkit-transform: rotateY(0deg) !important;
+    .shown {
+      .transform(rotateY(0deg)) !important;
     }
 
-    .pastop {
-      -webkit-transform: rotateY(180deg) !important;
+    .hidden {
+      .transform(rotateY(180deg)) !important;
     }
 
     .even {
-      .top {
-        -webkit-transform: rotateX(0deg) !important;
+      .shown {
+        .transform(rotateX(0deg)) !important;
       }
-      .pastop {
-        -webkit-transform: rotateX(180deg) !important;
+
+      .hidden {
+        .transform(rotateX(180deg)) !important;
       }
     }
   }
@@ -160,23 +131,20 @@ body {
   background-size: @width @height;
 }
 
-.background-size(@type) {
-  -webkit-background-size: @type;
-  -moz-background-size: @type;
-  -o-background-size: @type;
-  background-size: @type;
-}
-
-.round(@size) {
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  -o-border-radius: 5px;
-  border-radius: 5px;
-}
-
 .transition(@arg1) {
   -webkit-transition: @arg1;
   -moz-transition: @arg1;
-  -o-transition: @arg1;
   transition: @arg1;
+}
+
+.transform(@arg1) {
+  -webkit-transform: @arg1;
+  -moz-transform: @arg1;
+  transform: @arg1;
+}
+
+.backface-visibility(@type) {
+  -webkit-backface-visibility: @type;
+  -moz-backface-visibility: @type;
+  backface-visibility: @type;
 }
