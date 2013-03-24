@@ -12,7 +12,6 @@ import resources.MainResource;
 import resources.SearchResource;
 import resources.StaticResource;
 
-import java.io.File;
 import java.io.IOException;
 
 import static com.google.common.base.Objects.firstNonNull;
@@ -21,18 +20,16 @@ import static com.sun.jersey.api.core.ResourceConfig.PROPERTY_CONTAINER_RESPONSE
 import static java.lang.Integer.parseInt;
 
 public class MainGeekticServer {
-  private final Injector injector;
+  private Module[] modules;
 
-  public MainGeekticServer(Module module) {
-    this.injector = Guice.createInjector(module);
+  public MainGeekticServer(Module... modules) {
+    this.modules = modules;
   }
 
   public static void main(String[] args) throws IOException {
     int port = parseInt(firstNonNull(System.getenv("PORT"), "8080"));
 
-    Module configuration = new MainGeekticConfiguration(new File("."));
-
-    new MainGeekticServer(configuration).start(port);
+    new MainGeekticServer(new MainGeekticConfiguration()).start(port);
   }
 
   public void start(int port) throws IOException {
@@ -46,6 +43,7 @@ public class MainGeekticServer {
 
     config.getClasses().add(JacksonJsonProvider.class);
 
+    Injector injector = Guice.createInjector(modules);
     config.getSingletons().add(injector.getInstance(SearchResource.class));
     config.getSingletons().add(injector.getInstance(MainResource.class));
     config.getSingletons().add(injector.getInstance(StaticResource.class));

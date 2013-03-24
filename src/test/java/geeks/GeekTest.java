@@ -41,13 +41,10 @@ public class GeekTest {
 
   @Test
   public void should_compute_gravatar() {
-    Geek geek = new Geek();
+    Geek geek = geek("LIKE1", "LIKE2", "LIKE3");
     geek.prenom = "PRENOM";
     geek.email = "david@gageot.net";
     geek.ville = "VILLE";
-    geek.like1 = "LIKE1";
-    geek.like2 = "LIKE2";
-    geek.like3 = "LIKE3";
 
     Result result = geek.toResult();
 

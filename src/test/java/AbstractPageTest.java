@@ -1,14 +1,9 @@
-import com.google.common.io.Files;
-import com.google.inject.AbstractModule;
-import com.google.inject.util.Modules;
 import main.MainGeekticConfiguration;
 import main.MainGeekticServer;
 import misc.PhantomJsTest;
 import org.junit.Before;
 
 import java.util.Random;
-
-import static org.mockito.Mockito.spy;
 
 public abstract class AbstractPageTest extends PhantomJsTest {
   private static final int TRY_COUNT = 10;
@@ -27,7 +22,7 @@ public abstract class AbstractPageTest extends PhantomJsTest {
     for (int i = 0; i < TRY_COUNT; i++) {
       try {
         port = randomPort();
-        server = new MainGeekticServer(Modules.override(new MainGeekticConfiguration(Files.createTempDir())).with(testConfiguration()));
+        server = new MainGeekticServer(new MainGeekticConfiguration());
         server.start(port);
         return;
       } catch (Exception e) {
@@ -35,14 +30,6 @@ public abstract class AbstractPageTest extends PhantomJsTest {
       }
     }
     throw new IllegalStateException("Unable to start server");
-  }
-
-  private static AbstractModule testConfiguration() {
-    return new AbstractModule() {
-      @Override
-      protected void configure() {
-      }
-    };
   }
 
   private synchronized int randomPort() {

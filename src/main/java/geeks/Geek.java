@@ -1,9 +1,8 @@
 package geeks;
 
-import com.google.common.base.Strings;
+import static com.google.common.base.Strings.isNullOrEmpty;
 
 public class Geek {
-  public String nom;
   public String prenom;
   public String email;
   public String ville;
@@ -12,24 +11,16 @@ public class Geek {
   public String like3;
 
   public Result toResult() {
-    return new Result(prenom, ville, like1, like2, like3, email);
+    return new Result(prenom, email, ville, like1, like2, like3);
   }
 
   public boolean matches(String search) {
-    if (Strings.isNullOrEmpty(search)) {
-      return false;
-    }
-    if (search.length() < 3) {
-      return false;
-    }
-    return matchesAny(search, like1, like2, like3);
+    return !isNullOrEmpty(search) && (search.length() >= 3) && matchesAny(search, like1, like2, like3);
   }
 
   private static boolean matchesAny(String search, String... terms) {
-    String trimmedSearch = search.trim();
-
     for (String term : terms) {
-      if (matches(trimmedSearch, term.trim())) {
+      if (matches(search.trim(), term.trim())) {
         return true;
       }
     }
@@ -40,7 +31,7 @@ public class Geek {
   private static boolean matches(String search, String term) {
     return search.equalsIgnoreCase(term)
       || plural(search).equalsIgnoreCase(term)
-      || search.equalsIgnoreCase(term + "s");
+      || search.equalsIgnoreCase(plural(term));
   }
 
   private static String plural(String word) {
