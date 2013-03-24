@@ -3,12 +3,12 @@ package geeks;
 import static com.google.common.base.Strings.isNullOrEmpty;
 
 public class Geek {
-  public String prenom;
-  public String email;
-  public String ville;
-  public String like1;
-  public String like2;
-  public String like3;
+  String prenom;
+  String email;
+  String ville;
+  String like1;
+  String like2;
+  String like3;
 
   public Result toResult() {
     return new Result(prenom, email, ville, like1, like2, like3);
