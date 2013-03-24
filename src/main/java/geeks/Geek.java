@@ -1,7 +1,6 @@
 package geeks;
 
 import com.google.common.base.Strings;
-import com.google.gson.Gson;
 
 public class Geek {
   public String nom;
@@ -14,14 +13,6 @@ public class Geek {
 
   public Result toResult() {
     return new Result(prenom, ville, like1, like2, like3, email);
-  }
-
-  public static void main(String[] args) throws Exception {
-    Geek geek = new Geek();
-    geek.email = "david@gageot.net";
-    geek.nom = "David";
-    geek.prenom = "Gageot";
-    System.out.println(new Gson().toJson(geek));
   }
 
   public boolean matches(String search) {
