@@ -38,6 +38,14 @@ public class StaticResource extends AbstractResource {
   }
 
   @GET
+  @Path("{path : .*\\.html}")
+  @Produces("text/html;charset=UTF-8")
+  public Response html(@PathParam("path") String path) {
+    File html = file("static", path);
+    return ok(templatize(read(html)), html.lastModified());
+  }
+
+  @GET
   @Path("{path : .*\\.less}")
   @Produces("text/css;charset=UTF-8")
   public Response less(@PathParam("path") String path) {
@@ -50,7 +58,7 @@ public class StaticResource extends AbstractResource {
   @Produces("application/javascript;charset=UTF-8")
   public Response coffee(@PathParam("path") String path) {
     File coffee = file(path);
-    return ok(coffeeScriptCompiler.compile(coffee), coffee.lastModified());
+    return ok(templatize(coffeeScriptCompiler.compile(coffee)), coffee.lastModified());
   }
 
   @GET
