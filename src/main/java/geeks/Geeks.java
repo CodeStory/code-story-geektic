@@ -70,7 +70,6 @@ public class Geeks {
 
 		geekSet.clear();
 		for (Geek geek : new Gson().<Geek[]>fromJson(json, Geek[].class)) {
-			System.out.println(geek);
 			geek.imageUrl = String.format("static/%s/img/geek%s.jpg", readGitHash(), RANDOM.nextInt(8));
 
 			addGeek(geek);
