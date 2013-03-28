@@ -1,7 +1,8 @@
 angular.module('code-story-geektic', [])
-  .config ['$routeProvider', ($routeProvider) ->
+  .config ($routeProvider, $locationProvider) ->
     $routeProvider
-      .when('/home', {templateUrl: 'static/[[version]]/home.html', controller: homeController})
-      .otherwise {redirectTo: '/home'}
+      .when('/', {templateUrl: 'static/[[version]]/home.html', controller: "homeController", reloadOnSearch: false})
+      .otherwise {redirectTo: '/'}
+    $locationProvider
+      .html5Mode true
     return
-  ]
