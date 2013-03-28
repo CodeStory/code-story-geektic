@@ -28,15 +28,4 @@ public class SearchResourceTest {
     List<String> geeks = searchResource.searchGeeks("scala");
     assertThat(geeks).contains("Martin");
   }
-
-  @Test
-  @Ignore
-  public void should_find_added_geek() throws Exception {
-    Geek geek = new Geek("Xavier");
-    geek.like1 = "java";
-
-    searchResource.addGeek(geek);
-
-    assertThat(searchResource.searchGeeks("java")).contains("Xavier");
-  }
 }

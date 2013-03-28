@@ -1,9 +1,5 @@
 package resources;
 
-import com.google.common.base.Strings;
-import geeks.Geek;
-import geeks.Geeks;
-
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.QueryParam;
@@ -13,10 +9,10 @@ import java.util.Collections;
 import java.util.List;
 
 @Path("/search")
-public class SearchResource extends AbstractResource implements Geeks {
+public class SearchResource extends AbstractResource {
 
   @GET
-  public List<String> searchGeeks(@QueryParam("keywords")String keywords) {
+  public List<String> searchGeeks(@QueryParam("keywords") String keywords) {
     if ("java".equals(keywords)) {
       return Arrays.asList("David");
     }
@@ -27,7 +23,4 @@ public class SearchResource extends AbstractResource implements Geeks {
     return Collections.emptyList();
   }
 
-  @Override
-  public void addGeek(Geek geek) {
-  }
 }
