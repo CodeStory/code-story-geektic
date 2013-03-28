@@ -5,6 +5,7 @@ import geeks.Geek;
 import geeks.Geeks;
 import twitter4j.Status;
 
+import java.net.URL;
 import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -29,8 +30,10 @@ public class TwitterCommands {
     String[] likes = toArray(on(' ').split(matcher.group(1)), String.class);
 
     Geek geek = new Geek(status.getUser().getName(), likes);
+    URL profileImageURL = status.getUser().getProfileImageURL();
+    if (profileImageURL != null) {
+      geek.imageUrl = profileImageURL.toString();
+    }
     geeks.addGeek(geek);
-
-    System.out.println("New Geek: " + geek.nom + " - " + Arrays.toString(geek.likes));
   }
 }
