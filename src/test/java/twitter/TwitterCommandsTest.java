@@ -37,7 +37,7 @@ public class TwitterCommandsTest {
 	public void should_create_geek_on_tweet() throws MalformedURLException {
 		when(status.getUser()).thenReturn(user);
     when(user.getName()).thenReturn("Xavier Hanin");
-    when(user.getProfileImageURL()).thenReturn(new URL("http://exemple.org/foo.jpg"));
+    when(user.getBiggerProfileImageURL()).thenReturn("http://exemple.org/foo.jpg");
 		when(status.getText()).thenReturn("#geektic LIKE1 LIKE2 LIKE3");
 
 		twitterCommands.onTweet(status);

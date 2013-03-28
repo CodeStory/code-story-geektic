@@ -2,6 +2,7 @@ package twitter;
 
 import com.google.inject.Inject;
 import twitter4j.FilterQuery;
+import twitter4j.StallWarning;
 import twitter4j.Status;
 import twitter4j.StatusDeletionNotice;
 import twitter4j.StatusListener;
@@ -55,6 +56,10 @@ public class GeektickHashTagListener implements StatusListener {
 	@Override
 	public void onScrubGeo(long userId, long upToStatusId) {
 		System.out.println("Got scrub_geo event userId:" + userId + " upToStatusId:" + upToStatusId);
+	}
+
+	@Override
+	public void onStallWarning(StallWarning stallWarning) {
 	}
 
 	@Override

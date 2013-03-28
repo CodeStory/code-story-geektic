@@ -30,9 +30,9 @@ public class TwitterCommands {
     String[] likes = toArray(on(' ').split(matcher.group(1)), String.class);
 
     Geek geek = new Geek(status.getUser().getName(), likes);
-    URL profileImageURL = status.getUser().getProfileImageURL();
+    String profileImageURL = status.getUser().getBiggerProfileImageURL();
     if (profileImageURL != null) {
-      geek.imageUrl = profileImageURL.toString();
+      geek.imageUrl = profileImageURL;
     }
     geeks.addGeek(geek);
   }
