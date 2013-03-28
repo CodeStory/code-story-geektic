@@ -20,9 +20,7 @@ public class TwitterCommandsTest {
 		User user = mock(User.class);
 		when(status.getUser()).thenReturn(user);
 		when(user.getName()).thenReturn("Xavier Hanin");
-		assertThat(new TwitterCommands().onTweet(status)).isEqualTo("Xavier Hanin");
+		assertThat(new TwitterCommands().onTweet(status)).isEqualTo(new Geek("Xavier Hanin"));
 	}
-
-
 
 }
