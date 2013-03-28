@@ -17,7 +17,7 @@ script: controllers.coffee
     </div>
     <div id="geeks">
         <div class="square" ng-repeat="geek in geeks">
-            <img class="image" src="static/[[version]]/img/{{geek.image}}.jpg">
+            <img class="image" src="{{geek.imageUrl}}">
             <div class="caption">
                 <p>{{geek.nom}}</p>
             </div>

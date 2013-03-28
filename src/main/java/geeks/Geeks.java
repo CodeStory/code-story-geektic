@@ -7,6 +7,7 @@ import com.google.common.collect.Sets;
 import com.google.common.io.Files;
 import com.google.gson.Gson;
 import com.google.inject.Singleton;
+import webserver.templating.Template;
 
 import java.io.File;
 import java.io.IOException;
@@ -14,6 +15,8 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
+
+import static webserver.templating.Template.readGitHash;
 
 @Singleton
 public class Geeks {
@@ -68,7 +71,7 @@ public class Geeks {
 		geekSet.clear();
 		for (Geek geek : new Gson().<Geek[]>fromJson(json, Geek[].class)) {
 			System.out.println(geek);
-			geek.image = "geek" + RANDOM.nextInt(8);
+			geek.imageUrl = String.format("static/%s/img/geek%s.jpg", readGitHash(), RANDOM.nextInt(8));
 
 			addGeek(geek);
 		}

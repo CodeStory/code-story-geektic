@@ -3,11 +3,9 @@ package geeks;
 import java.util.Random;
 
 public class Geek {
-	public static final Random RANDOM = new Random();
-
 	public final String nom;
-  public String image;
   public String[] likes;
+  public String imageUrl;
 
   public Geek(String nom, String... likes) {
     this.nom = nom;
@@ -16,5 +14,9 @@ public class Geek {
 
   public String getNom() {
     return nom;
+  }
+
+  public String getImageUrl() {
+    return imageUrl;
   }
 }
