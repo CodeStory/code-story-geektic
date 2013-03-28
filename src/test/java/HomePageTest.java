@@ -23,7 +23,8 @@ public class HomePageTest extends AbstractPageTest {
   public void should_search_geeks_who_love_cats() {
     fill("#searchInput").with("chats");
 
-    assertThat(find("#geeks").getText()).contains("Gageot");
+    assertThat(find("#geeks .square .caption").getText()).contains("Gageot");
+    assertThat(find("#geeks .square .caption").getText()).contains("Java Tests Chats");
   }
 
   @Test

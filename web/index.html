@@ -18,8 +18,13 @@ script: controllers.coffee
     <div id="geeks">
         <div class="square" ng-repeat="geek in geeks">
             <img class="image" src="{{geek.imageUrl}}">
+
             <div class="caption">
                 <p>{{geek.nom}}</p>
+
+                <p class="likes">
+                    <span ng-repeat="like in geek.likes">{{like}} </span>
+                </p>
             </div>
         </div>
     </div>
