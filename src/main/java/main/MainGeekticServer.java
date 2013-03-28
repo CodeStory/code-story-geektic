@@ -9,6 +9,7 @@ import com.sun.jersey.api.core.ResourceConfig;
 import com.sun.jersey.simple.container.SimpleServerFactory;
 import org.codehaus.jackson.jaxrs.JacksonJsonProvider;
 import resources.MainResource;
+import resources.SearchResource;
 import resources.StaticResource;
 
 import java.io.IOException;
@@ -45,6 +46,7 @@ public class MainGeekticServer {
     Injector injector = Guice.createInjector(modules);
     config.getSingletons().add(injector.getInstance(MainResource.class));
     config.getSingletons().add(injector.getInstance(StaticResource.class));
+    config.getSingletons().add(injector.getInstance(SearchResource.class));
 
     config.getProperties().put(PROPERTY_CONTAINER_REQUEST_FILTERS, GZIPContentEncodingFilter.class);
     config.getProperties().put(PROPERTY_CONTAINER_RESPONSE_FILTERS, GZIPContentEncodingFilter.class);
