@@ -5,16 +5,34 @@ import org.junit.Test;
 import static org.fest.assertions.Assertions.assertThat;
 
 public class GeeksTest {
+  Geeks geeks = new Geeks();
 
   @Test
-  public void should_find_added_geek() throws Exception {
-    Geek geek = new Geek("Xavier");
-    geek.like1 = "java";
+  public void no_geek_matches_empty_keywords() {
+    geeks.addGeek(geek("Xavier", "java"));
+    geeks.addGeek(geek("Martin", "scala"));
 
-    Geeks geeks = new Geeks();
-    geeks.addGeek(geek);
-
-    assertThat(geeks.getGeeks()).onProperty("nom").containsOnly("Xavier");
+    assertThat(geeks.search("")).isEmpty();
   }
 
+  @Test
+  public void should_search_java_geek() {
+    geeks.addGeek(geek("Xavier", "java"));
+
+    assertThat(geeks.search("java")).onProperty("nom").containsOnly("Xavier");
+  }
+
+  @Test
+  public void should_search_one_java_geek() {
+    geeks.addGeek(geek("Xavier", "java"));
+    geeks.addGeek(geek("Martin", "scala"));
+
+    assertThat(geeks.search("scala")).onProperty("nom").containsOnly("Martin");
+  }
+
+  static Geek geek(String name, String like) {
+    Geek martin = new Geek(name);
+    martin.like1 = like;
+    return martin;
+  }
 }
