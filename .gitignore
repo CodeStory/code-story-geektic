@@ -4,3 +4,5 @@
 target/
 snapshots/
 /votes
+infinitest.filters
+twitter4j-bak.properties
