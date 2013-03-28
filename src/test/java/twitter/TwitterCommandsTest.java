@@ -18,27 +18,31 @@ import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TwitterCommandsTest {
-  @Mock
-  private Geeks geeks;
-  @Mock
-  Status status;
-  @Mock
-  User user;
+	@Mock
+	Status status;
+	@Mock
+	User user;
+	@Mock
+	private Geeks geeks;
+	@Captor
+	private ArgumentCaptor<Geek> geekCaptor;
+	@InjectMocks
+	private TwitterCommands twitterCommands;
 
-  @Captor
-  private ArgumentCaptor<Geek> geekCaptor;
+	@Test
+	public void should_create_geek_on_tweet() {
+		when(status.getUser()).thenReturn(user);
+		when(status.getText()).thenReturn("#geektic LIKE1 LIKE2 LIKE3");
+		when(user.getName()).thenReturn("Xavier Hanin");
 
-  @InjectMocks
-  private TwitterCommands twitterCommands;
+		twitterCommands.onTweet(status);
 
-  @Test
-  public void should_create_geek_on_tweet() {
-    when(status.getUser()).thenReturn(user);
-    when(user.getName()).thenReturn("Xavier Hanin");
+		verify(geeks).addGeek(geekCaptor.capture());
 
-    twitterCommands.onTweet(status);
-
-    verify(geeks).addGeek(geekCaptor.capture());
-    assertThat(geekCaptor.getValue().nom).isEqualTo("Xavier Hanin");
-  }
+		Geek newGeek = geekCaptor.getValue();
+		assertThat(newGeek.nom).isEqualTo("Xavier Hanin");
+		assertThat(newGeek.like1).isEqualTo("LIKE1");
+		assertThat(newGeek.like2).isEqualTo("LIKE2");
+		assertThat(newGeek.like3).isEqualTo("LIKE3");
+	}
 }
