@@ -18,8 +18,8 @@ import java.util.Set;
 @Singleton
 public class Geeks {
 	private static final Random RANDOM = new Random();
-
 	private Set<Geek> geekSet;
+	private File localDataLocation = new File("local-geeks.json");
 
 	public Geeks() {
 		this.geekSet = Sets.newCopyOnWriteArraySet();
@@ -27,6 +27,11 @@ public class Geeks {
 
 	public void addGeek(Geek geek) {
 		geekSet.add(geek);
+		try {
+			Files.write(new Gson().toJson(geekSet), localDataLocation, Charsets.UTF_8);
+		} catch (IOException e) {
+			// FIXME
+		}
 	}
 
 	public Collection<Geek> search(String keyword) {
@@ -49,12 +54,31 @@ public class Geeks {
 	}
 
 	public void load() throws IOException {
-		String json = Files.toString(new File("web/geeks.json"), Charsets.UTF_8);
+		File geeksFile;
+		String json = null;
+		if (localDataLocation.exists()) {
+			geeksFile = localDataLocation;
+			json = Files.toString(geeksFile, Charsets.UTF_8);
+		}
+		if (Strings.isNullOrEmpty(json)) {
+			geeksFile = new File("web/geeks.json");
+			json = Files.toString(geeksFile, Charsets.UTF_8);
+		}
 
+		geekSet.clear();
 		for (Geek geek : new Gson().<Geek[]>fromJson(json, Geek[].class)) {
+			System.out.println(geek);
 			geek.image = "geek" + RANDOM.nextInt(8);
 
 			addGeek(geek);
 		}
+	}
+
+	public File getLocalDataLocation() {
+		return localDataLocation;
+	}
+
+	public void setLocalDataLocation(File localDataLocation) {
+		this.localDataLocation = localDataLocation;
 	}
 }
