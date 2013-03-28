@@ -69,6 +69,14 @@ public class GeeksTest {
 		assertThat(geeks.search("coffee linux")).onProperty("nom").containsOnly("Xavier", "Christophe");
 	}
 
+  @Test
+  public void should_search_on_two_keywords_avoid_duplaicates() {
+		geeks.addGeek(geek("Xavier", "image", "java", "coffee"));
+		geeks.addGeek(geek("Christophe", "image", "java", "linux"));
+
+		assertThat(geeks.search("coffee java")).hasSize(2);
+	}
+
 	@Test
 	public void should_store_geeks() throws Exception {
 		geeks.load();

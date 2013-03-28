@@ -39,7 +39,7 @@ public class Geeks {
 	}
 
 	public Collection<Geek> search(String keywords) {
-		List<Geek> friends = Lists.newArrayList();
+		Set<Geek> friends = Sets.newHashSet();
 
 		if (Strings.isNullOrEmpty(keywords)) {
 			return friends;
