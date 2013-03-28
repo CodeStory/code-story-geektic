@@ -11,8 +11,8 @@ script: controllers.coffee
         <h4>Le site de rencontre pour les geeks en conférence.</h4>
 
         <form>
-            <input type="text" placeholder="Qu'est-ce qui te passionne?" autofocus="autofocus">
+            <input ng-change="findGeeks()" ng-model="keywords" id="searchInput" type="text" placeholder="Qu'est-ce qui te passionne?" autofocus="autofocus">
         </form>
+        <div id="geeks">{{geeks}}</div>
     </div>
 </div>
-<!-- hoohoo -->
