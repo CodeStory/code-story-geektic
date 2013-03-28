@@ -1,6 +1,8 @@
 homeController = ($scope, $http, $location) ->
   $scope.findGeeks = ->
-    $http.get('/search', { 'params': { 'keywords': $scope.keywords } } ).success (data) ->
+    parameters = keywords: $scope.keywords
+
+    $http.get('/search', params: parameters).success (data) ->
       $scope.geeks = data
       $location.url "?keyword=#{$scope.keywords}"
 
