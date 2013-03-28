@@ -5,7 +5,6 @@ import com.google.common.collect.Sets;
 import com.google.inject.Singleton;
 
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -25,7 +24,7 @@ public class Geeks {
     List<Geek> friends = Lists.newArrayList();
 
     for (Geek geek : geekSet) {
-      if (geek.like1.equals(keyword)) {
+      if (geek.likes[0].equals(keyword)) {
         friends.add(geek);
       }
     }

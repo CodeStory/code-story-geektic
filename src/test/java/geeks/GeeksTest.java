@@ -31,8 +31,6 @@ public class GeeksTest {
   }
 
   static Geek geek(String name, String like) {
-    Geek martin = new Geek(name);
-    martin.like1 = like;
-    return martin;
+    return new Geek(name, like);
   }
 }

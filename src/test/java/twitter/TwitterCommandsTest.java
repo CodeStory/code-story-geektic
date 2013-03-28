@@ -42,9 +42,7 @@ public class TwitterCommandsTest {
 
 		Geek newGeek = geekCaptor.getValue();
 		assertThat(newGeek.nom).isEqualTo("Xavier Hanin");
-		assertThat(newGeek.like1).isEqualTo("LIKE1");
-		assertThat(newGeek.like2).isEqualTo("LIKE2");
-		assertThat(newGeek.like3).isEqualTo("LIKE3");
+		assertThat(newGeek.likes).contains("LIKE1", "LIKE2", "LIKE3");
 	}
 
 	@Test
@@ -57,8 +55,6 @@ public class TwitterCommandsTest {
 		verify(geeks).addGeek(geekCaptor.capture());
 
 		Geek newGeek = geekCaptor.getValue();
-		assertThat(newGeek.like1).isEqualTo("LIKE1");
-		assertThat(newGeek.like2).isEqualTo("LIKE2");
-		assertThat(newGeek.like3).isEqualTo("LIKE3");
+    assertThat(newGeek.likes).contains("LIKE1", "LIKE2", "LIKE3");
 	}
 }

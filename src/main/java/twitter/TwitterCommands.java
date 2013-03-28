@@ -5,11 +5,12 @@ import geeks.Geek;
 import geeks.Geeks;
 import twitter4j.Status;
 
-import java.util.Iterator;
+import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static com.google.common.base.Splitter.on;
+import static com.google.common.collect.Iterables.toArray;
 
 public class TwitterCommands {
   public static final Pattern TWEET_PATTERN = Pattern.compile(".*#geektic (.+)");
@@ -17,21 +18,19 @@ public class TwitterCommands {
   @Inject
   private Geeks geeks;
 
-  public Geek onTweet(Status status) {
-    Geek geek = new Geek(status.getUser().getName());
+  public void onTweet(Status status) {
     String text = status.getText();
 
     Matcher matcher = TWEET_PATTERN.matcher(text);
-    if (matcher.matches()) {
-      Iterator<String> likes = on(' ').split(matcher.group(1)).iterator();
-      if (likes.hasNext()) geek.like1 = likes.next();
-      if (likes.hasNext()) geek.like2 = likes.next();
-      if (likes.hasNext()) geek.like3 = likes.next();
+    if (!matcher.matches()) {
+      return;
     }
 
-    geeks.addGeek(geek);
-    System.out.println("New Geek: " + geek.nom + " - " + geek.like1);
+    String[] likes = toArray(on(' ').split(matcher.group(1)), String.class);
 
-    return geek;
+    Geek geek = new Geek(status.getUser().getName(), likes);
+    geeks.addGeek(geek);
+
+    System.out.println("New Geek: " + geek.nom + " - " + Arrays.toString(geek.likes));
   }
 }
