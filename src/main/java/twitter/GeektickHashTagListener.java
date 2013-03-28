@@ -15,12 +15,21 @@ public class GeektickHashTagListener implements StatusListener {
   private TwitterCommands twitterCommands;
 
   public void start() {
-    TwitterStream twitterStream = new TwitterStreamFactory(
+		String accesstoken = System.getenv("ACCESSTOKEN");
+		String accesstokensecret = System.getenv("ACCESSTOKENSECRET");
+		String consumerkey = System.getenv("CONSUMERKEY");
+		String consumersecret = System.getenv("CONSUMERSECRET");
+		System.out.println(accesstoken);
+		System.out.println(accesstokensecret);
+		System.out.println(consumerkey);
+		System.out.println(consumersecret);
+
+		TwitterStream twitterStream = new TwitterStreamFactory(
       new ConfigurationBuilder()
-        .setOAuthAccessToken(System.getenv("ACCESSTOKEN"))
-        .setOAuthAccessTokenSecret(System.getenv("ACCESSTOKENSECRET"))
-        .setOAuthConsumerKey(System.getenv("CONSUMERKEY"))
-        .setOAuthConsumerSecret(System.getenv("CONSUMERSECRET"))
+        .setOAuthAccessToken(accesstoken)
+        .setOAuthAccessTokenSecret(accesstokensecret)
+        .setOAuthConsumerKey(consumerkey)
+        .setOAuthConsumerSecret(consumersecret)
         .build()
     ).getInstance();
 
