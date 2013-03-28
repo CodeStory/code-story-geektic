@@ -31,6 +31,14 @@ public class GeeksTest {
   }
 
   @Test
+  public void should_search_case_insensitive() {
+    geeks.addGeek(geek("Xavier", "java"));
+    geeks.addGeek(geek("Martin", "scala"));
+
+    assertThat(geeks.search("SCaLa")).onProperty("nom").containsOnly("Martin");
+  }
+
+  @Test
   public void should_search_on_any_keyword() {
     geeks.addGeek(geek("Xavier", "java", "coffee"));
 

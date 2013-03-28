@@ -7,6 +7,7 @@ import com.google.inject.Singleton;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 
 import static java.util.Arrays.asList;
@@ -25,10 +26,12 @@ public class Geeks {
 
   public Collection<Geek> search(String keyword) {
     List<Geek> friends = Lists.newArrayList();
-
     for (Geek geek : geekSet) {
-      if (asList(geek.likes).contains(keyword)) {
-        friends.add(geek);
+      for (String like : geek.likes) {
+        if (like.equalsIgnoreCase(keyword)) {
+          friends.add(geek);
+          break;
+        }
       }
     }
 
