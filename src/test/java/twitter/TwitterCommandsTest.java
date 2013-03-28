@@ -26,6 +26,7 @@ public class TwitterCommandsTest {
 	private Geeks geeks;
 	@Captor
 	private ArgumentCaptor<Geek> geekCaptor;
+
 	@InjectMocks
 	private TwitterCommands twitterCommands;
 
