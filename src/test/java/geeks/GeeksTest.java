@@ -30,7 +30,14 @@ public class GeeksTest {
     assertThat(geeks.search("scala")).onProperty("nom").containsOnly("Martin");
   }
 
-  static Geek geek(String name, String like) {
-    return new Geek(name, like);
+  @Test
+  public void should_search_on_any_keyword() {
+    geeks.addGeek(geek("Xavier", "java", "coffee"));
+
+    assertThat(geeks.search("coffee")).onProperty("nom").containsOnly("Xavier");
+  }
+
+  static Geek geek(String name, String... likes) {
+    return new Geek(name, likes);
   }
 }
