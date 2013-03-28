@@ -7,3 +7,9 @@ homeController = ($scope, $http, $location) ->
 
   $scope.search = $location.search().q || ''
   $scope.doSearch()
+
+mapController = ->
+  console.log("oh yeah")
+  map = new Mappy.api.map.Map({container:"#map"})
+  map.setCenter(new Mappy.api.geo.Coordinates(1.44295, 43.6044), 7)
+  return
