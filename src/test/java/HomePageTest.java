@@ -1,3 +1,5 @@
+import com.google.common.base.Predicate;
+import com.google.common.base.Predicates;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -41,5 +43,17 @@ public class HomePageTest extends AbstractPageTest {
 
     clear("#searchInput");
     await().until("#geeks").withText().equalTo("");
+  }
+
+  @Test
+  public void should_have_an_url_with_the_tags() {
+    fill("#searchInput").with("java");
+
+    await().until(new Predicate<Object>() {
+      @Override
+      public boolean apply(Object input) {
+        return url().contains("?keyword=java");
+      }
+    });
   }
 }
