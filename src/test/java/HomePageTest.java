@@ -16,7 +16,7 @@ public class HomePageTest extends AbstractPageTest {
 
   @Test
   public void should_display_no_geeks() {
-    assertThat(find("#geeks").getText()).isEmpty();
+    assertThat(find("#geeks").getText()).isNull();
   }
 
   @Test
