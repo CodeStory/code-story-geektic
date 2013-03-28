@@ -1,6 +1,7 @@
 package geeks;
 
 import com.google.common.base.Charsets;
+import com.google.common.base.Splitter;
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
@@ -37,18 +38,20 @@ public class Geeks {
 		}
 	}
 
-	public Collection<Geek> search(String keyword) {
+	public Collection<Geek> search(String keywords) {
 		List<Geek> friends = Lists.newArrayList();
 
-		if (Strings.isNullOrEmpty(keyword)) {
+		if (Strings.isNullOrEmpty(keywords)) {
 			return friends;
 		}
 
-		for (Geek geek : geekSet) {
-			for (String like : geek.likes) {
-				if (like.equalsIgnoreCase(keyword)) {
-					friends.add(geek);
-					break;
+		for (String keyword : Splitter.on(" ").trimResults().omitEmptyStrings().split(keywords)) {
+			for (Geek geek : geekSet) {
+				for (String like : geek.likes) {
+					if (like.equalsIgnoreCase(keyword)) {
+						friends.add(geek);
+						break;
+					}
 				}
 			}
 		}

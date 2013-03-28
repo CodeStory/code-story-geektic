@@ -61,6 +61,13 @@ public class GeeksTest {
 
 		assertThat(geeks.search("coffee")).onProperty("nom").containsOnly("Xavier");
 	}
+  @Test
+  public void should_search_on_two_keywords() {
+		geeks.addGeek(geek("Xavier", "image", "java", "coffee"));
+		geeks.addGeek(geek("Christophe", "image", "java", "linux"));
+
+		assertThat(geeks.search("coffee linux")).onProperty("nom").containsOnly("Xavier", "Christophe");
+	}
 
 	@Test
 	public void should_store_geeks() throws Exception {
@@ -92,7 +99,6 @@ public class GeeksTest {
 		geeks.load();
 		assertThat(geeks.search("java")).onProperty("nom").containsOnly("Hanin");
 	}
-
 
 
 	static Geek geek(String name, String imageUrl, String... likes) {
