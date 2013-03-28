@@ -15,9 +15,12 @@ script: controllers.coffee
                    placeholder="Qu'est-ce qui te passionne?" autofocus="autofocus">
         </form>
     </div>
-    <span ng-repeat="geek in geeks">
-    <div id="geeks" class="square">
-        <img class="image" src="static/[[version]]/img/geek0.jpg">{{geek.nom}}
+    <div id="geeks">
+        <div class="square" ng-repeat="geek in geeks">
+            <img class="image" src="static/[[version]]/img/{{geek.image}}.jpg">
+            <div class="caption">
+                <p>{{geek.nom}}</p>
+            </div>
+        </div>
     </div>
-    </span>
 </div>

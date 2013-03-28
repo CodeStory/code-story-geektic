@@ -57,6 +57,7 @@ public class MainGeekticServer {
     Geeks geeks = injector.getInstance(Geeks.class);
     geeks.addGeek(new Geek("David", "java"));
     geeks.addGeek(new Geek("Martin", "scala"));
+    geeks.addGeek(new Geek("Jean-Laurent", "scala", "java", "coffee"));
 
     config.getSingletons().add(injector.getInstance(MainResource.class));
     config.getSingletons().add(injector.getInstance(StaticResource.class));
