@@ -13,6 +13,8 @@ import org.codehaus.jackson.jaxrs.JacksonJsonProvider;
 import resources.MainResource;
 import resources.SearchResource;
 import resources.StaticResource;
+import twitter.GeektickHashTagListener;
+import twitter.TwitterCommands;
 
 import java.io.IOException;
 
@@ -23,6 +25,7 @@ import static java.lang.Integer.parseInt;
 
 public class MainGeekticServer {
   private Module[] modules;
+  private Injector injector;
 
   public MainGeekticServer(Module... modules) {
     this.modules = modules;
@@ -31,7 +34,10 @@ public class MainGeekticServer {
   public static void main(String[] args) throws IOException {
     int port = parseInt(firstNonNull(System.getenv("PORT"), "8080"));
 
-    new MainGeekticServer(new MainGeekticConfiguration()).start(port);
+    MainGeekticServer geekticServer = new MainGeekticServer(new MainGeekticConfiguration());
+    geekticServer.start(port);
+    System.out.println("running");
+    geekticServer.injector.getInstance(GeektickHashTagListener.class).start();
   }
 
   public void start(int port) throws IOException {
@@ -45,7 +51,7 @@ public class MainGeekticServer {
 
     config.getClasses().add(JacksonJsonProvider.class);
 
-    Injector injector = Guice.createInjector(modules);
+    injector = Guice.createInjector(modules);
 
     // TODO: Move to tests
     Geeks geeks = injector.getInstance(Geeks.class);
