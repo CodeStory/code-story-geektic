@@ -6,9 +6,14 @@ public class Geek {
 	public String like2;
 	public String like3;
 
-	public Geek(String nom) {
-		this.nom = nom;
-	}
+  public Geek(String nom) {
+    this.nom = nom;
+  }
+
+  public Geek(String nom, String like1) {
+    this.nom = nom;
+    this.like1 = like1;
+  }
 
   public String getNom() {
     return nom;

@@ -1,17 +1,20 @@
 package geeks;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
+import com.google.inject.Singleton;
 
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+@Singleton
 public class Geeks {
   private Set<Geek> geekSet;
 
   public Geeks() {
-    this.geekSet = new HashSet<>();
+    this.geekSet = Sets.newCopyOnWriteArraySet();
   }
 
   public void addGeek(Geek geek) {

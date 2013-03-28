@@ -1,31 +1,32 @@
 package resources;
 
 import geeks.Geek;
-import org.junit.Ignore;
+import geeks.Geeks;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.List;
 
+import static java.util.Arrays.asList;
 import static org.fest.assertions.Assertions.assertThat;
+import static org.mockito.Mockito.when;
 
+@RunWith(MockitoJUnitRunner.class)
 public class SearchResourceTest {
+  @Mock
+  Geeks geeks;
 
-  private SearchResource searchResource = new SearchResource();
-
-  @Test
-  public void testSearchGeek() throws Exception {
-    List<String> geeks = searchResource.searchGeeks("java");
-    assertThat(geeks).contains("David");
-  }
+  @InjectMocks
+  SearchResource searchResource;
 
   @Test
-  public void should_display_no_geeks() {
-    assertThat(searchResource.searchGeeks("")).isEmpty();
-  }
+  public void should_search() {
+    List<Geek> geeks = asList(new Geek("David"));
+    when(this.geeks.search("java")).thenReturn(geeks);
 
-  @Test
-  public void should_search_scala_geeks() {
-    List<String> geeks = searchResource.searchGeeks("scala");
-    assertThat(geeks).contains("Martin");
+    assertThat(searchResource.searchGeeks("java")).isSameAs(geeks);
   }
 }
