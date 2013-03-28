@@ -1,5 +1,8 @@
 package main;
 
+import com.google.common.base.Charsets;
+import com.google.common.io.Files;
+import com.google.gson.Gson;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Module;
@@ -16,6 +19,7 @@ import resources.StaticResource;
 import twitter.GeektickHashTagListener;
 import twitter.TwitterCommands;
 
+import java.io.File;
 import java.io.IOException;
 
 import static com.google.common.base.Objects.firstNonNull;
@@ -36,7 +40,6 @@ public class MainGeekticServer {
 
     MainGeekticServer geekticServer = new MainGeekticServer(new MainGeekticConfiguration());
     geekticServer.start(port);
-    System.out.println("running");
     geekticServer.injector.getInstance(GeektickHashTagListener.class).start();
   }
 
@@ -46,18 +49,15 @@ public class MainGeekticServer {
     SimpleServerFactory.create("http://localhost:" + port, configuration());
   }
 
-  private ResourceConfig configuration() {
+  private ResourceConfig configuration() throws IOException {
     DefaultResourceConfig config = new DefaultResourceConfig();
 
     config.getClasses().add(JacksonJsonProvider.class);
 
     injector = Guice.createInjector(modules);
 
-    // TODO: Move to tests
     Geeks geeks = injector.getInstance(Geeks.class);
-    geeks.addGeek(new Geek("David", "java"));
-    geeks.addGeek(new Geek("Martin", "scala"));
-    geeks.addGeek(new Geek("Jean-Laurent", "scala", "java", "coffee"));
+		geeks.load();
 
     config.getSingletons().add(injector.getInstance(MainResource.class));
     config.getSingletons().add(injector.getInstance(StaticResource.class));

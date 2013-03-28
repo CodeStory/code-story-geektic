@@ -16,21 +16,21 @@ public class HomePageTest extends AbstractPageTest {
 
   @Test
   public void should_display_no_geeks() {
-    assertThat(find("#geeks").getText()).isNull();
+    assertThat(find("#geeks").getText()).isEmpty();
   }
 
   @Test
-  public void should_search_java_geeks() {
-    fill("#searchInput").with("java");
+  public void should_search_geeks_who_love_cats() {
+    fill("#searchInput").with("chats");
 
-    assertThat(find("#geeks").getText()).contains("David");
+    assertThat(find("#geeks").getText()).contains("Gageot");
   }
 
   @Test
   public void should_search_scala_geeks() {
     fill("#searchInput").with("scala");
 
-    assertThat(find("#geeks").getText()).contains("Martin");
+    assertThat(find("#geeks").getText()).contains("Odersky");
   }
 
   @Test

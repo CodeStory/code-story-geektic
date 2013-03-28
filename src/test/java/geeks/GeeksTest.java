@@ -2,6 +2,8 @@ package geeks;
 
 import org.junit.Test;
 
+import java.io.IOException;
+
 import static org.fest.assertions.Assertions.assertThat;
 
 public class GeeksTest {
@@ -40,12 +42,19 @@ public class GeeksTest {
 
   @Test
   public void should_search_on_any_keyword() {
-    geeks.addGeek(geek("Xavier", "java", "coffee"));
+		geeks.addGeek(geek("Xavier", "java", "coffee"));
 
-    assertThat(geeks.search("coffee")).onProperty("nom").containsOnly("Xavier");
-  }
+		assertThat(geeks.search("coffee")).onProperty("nom").containsOnly("Xavier");
+	}
 
-  static Geek geek(String name, String... likes) {
+	@Test
+	public void should_load_geeks() throws IOException {
+		geeks.load();
+
+		assertThat(geeks.search("java")).onProperty("nom").containsOnly("Ardhuin", "Baligand", "Biville", "Bonvillain", "Cheype", "Dhordain", "Gageot", "Guérin", "Hanin", "Labouisse", "Le Merdy", "Le Merdy", "Leclaire", "Renou", "Tremblay", "Voisin", "Wauquier", "Gosling");
+	}
+
+	static Geek geek(String name, String... likes) {
     return new Geek(name, likes);
   }
 }
