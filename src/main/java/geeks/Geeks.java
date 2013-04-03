@@ -3,17 +3,14 @@ package geeks;
 import com.google.common.base.Charsets;
 import com.google.common.base.Splitter;
 import com.google.common.base.Strings;
-import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.google.common.io.Files;
 import com.google.gson.Gson;
 import com.google.inject.Singleton;
-import webserver.templating.Template;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.Collection;
-import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
@@ -21,69 +18,66 @@ import static webserver.templating.Template.readGitHash;
 
 @Singleton
 public class Geeks {
-	private static final Random RANDOM = new Random();
-	private Set<Geek> geekSet;
-	private File localDataLocation = new File("local-geeks.json");
+  private static final Random RANDOM = new Random();
 
-	public Geeks() {
-		this.geekSet = Sets.newCopyOnWriteArraySet();
-	}
+  private final Set<Geek> geekSet;
+  private File localDataLocation = new File("local-geeks.json");
 
-	public void addGeek(Geek geek) {
-		geekSet.add(geek);
-		try {
-			Files.write(new Gson().toJson(geekSet), localDataLocation, Charsets.UTF_8);
-		} catch (IOException e) {
-			// FIXME
-		}
-	}
+  public Geeks() {
+    this.geekSet = Sets.newCopyOnWriteArraySet();
+  }
 
-	public Collection<Geek> search(String keywords) {
-		Set<Geek> friends = Sets.newHashSet();
+  public void addGeek(Geek geek) {
+    geekSet.add(geek);
+    try {
+      Files.write(new Gson().toJson(geekSet), localDataLocation, Charsets.UTF_8);
+    } catch (IOException e) {
+      // FIXME
+    }
+  }
 
-		if (Strings.isNullOrEmpty(keywords)) {
-			return friends;
-		}
+  public Collection<Geek> search(String keywords) {
+    Set<Geek> friends = Sets.newHashSet();
 
-		for (String keyword : Splitter.on(" ").trimResults().omitEmptyStrings().split(keywords)) {
-			for (Geek geek : geekSet) {
-				for (String like : geek.likes) {
-					if (like.equalsIgnoreCase(keyword)) {
-						friends.add(geek);
-						break;
-					}
-				}
-			}
-		}
+    if (Strings.isNullOrEmpty(keywords)) {
+      return friends;
+    }
 
-		return friends;
-	}
+    for (String keyword : Splitter.on(" ").trimResults().omitEmptyStrings().split(keywords)) {
+      for (Geek geek : geekSet) {
+        for (String like : geek.likes) {
+          if (like.equalsIgnoreCase(keyword)) {
+            friends.add(geek);
+            break;
+          }
+        }
+      }
+    }
 
-	public void load() throws IOException {
-		File geeksFile;
-		String json = null;
-		if (localDataLocation.exists()) {
-			geeksFile = localDataLocation;
-			json = Files.toString(geeksFile, Charsets.UTF_8);
-		}
-		if (Strings.isNullOrEmpty(json)) {
-			geeksFile = new File("web/geeks.json");
-			json = Files.toString(geeksFile, Charsets.UTF_8);
-		}
+    return friends;
+  }
 
-		geekSet.clear();
-		for (Geek geek : new Gson().<Geek[]>fromJson(json, Geek[].class)) {
-			geek.imageUrl = String.format("static/%s/img/geek%s.jpg", readGitHash(), RANDOM.nextInt(8));
+  public void load() throws IOException {
+    File geeksFile;
+    String json = null;
+    if (localDataLocation.exists()) {
+      geeksFile = localDataLocation;
+      json = Files.toString(geeksFile, Charsets.UTF_8);
+    }
+    if (Strings.isNullOrEmpty(json)) {
+      geeksFile = new File("web/geeks.json");
+      json = Files.toString(geeksFile, Charsets.UTF_8);
+    }
 
-			addGeek(geek);
-		}
-	}
+    geekSet.clear();
+    for (Geek geek : new Gson().<Geek[]>fromJson(json, Geek[].class)) {
+      geek.imageUrl = String.format("static/%s/img/geek%s.jpg", readGitHash(), RANDOM.nextInt(8));
 
-	public File getLocalDataLocation() {
-		return localDataLocation;
-	}
+      addGeek(geek);
+    }
+  }
 
-	public void setLocalDataLocation(File localDataLocation) {
-		this.localDataLocation = localDataLocation;
-	}
+  public void setLocalDataLocation(File localDataLocation) {
+    this.localDataLocation = localDataLocation;
+  }
 }

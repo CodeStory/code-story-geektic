@@ -1,5 +1,4 @@
 import com.google.common.base.Predicate;
-import com.google.common.base.Predicates;
 import org.junit.Before;
 import org.junit.Test;
 

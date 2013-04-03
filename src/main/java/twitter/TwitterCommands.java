@@ -5,8 +5,6 @@ import geeks.Geek;
 import geeks.Geeks;
 import twitter4j.Status;
 
-import java.net.URL;
-import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 

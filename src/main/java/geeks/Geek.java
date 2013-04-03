@@ -1,10 +1,8 @@
 package geeks;
 
-import java.util.Random;
-
 public class Geek {
-	public final String nom;
-  public String[] likes;
+  public final String nom;
+  public final String[] likes;
   public String imageUrl;
 
   public Geek(String nom, String... likes) {

@@ -10,8 +10,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 
 import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
 
 @Path("/search")
 public class SearchResource extends AbstractResource {

@@ -1,8 +1,5 @@
 package main;
 
-import com.google.common.base.Charsets;
-import com.google.common.io.Files;
-import com.google.gson.Gson;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Module;
@@ -10,16 +7,13 @@ import com.sun.jersey.api.container.filter.GZIPContentEncodingFilter;
 import com.sun.jersey.api.core.DefaultResourceConfig;
 import com.sun.jersey.api.core.ResourceConfig;
 import com.sun.jersey.simple.container.SimpleServerFactory;
-import geeks.Geek;
 import geeks.Geeks;
 import org.codehaus.jackson.jaxrs.JacksonJsonProvider;
 import resources.MainResource;
 import resources.SearchResource;
 import resources.StaticResource;
 import twitter.GeektickHashTagListener;
-import twitter.TwitterCommands;
 
-import java.io.File;
 import java.io.IOException;
 
 import static com.google.common.base.Objects.firstNonNull;
@@ -57,7 +51,7 @@ public class MainGeekticServer {
     injector = Guice.createInjector(modules);
 
     Geeks geeks = injector.getInstance(Geeks.class);
-		geeks.load();
+    geeks.load();
 
     config.getSingletons().add(injector.getInstance(MainResource.class));
     config.getSingletons().add(injector.getInstance(StaticResource.class));
