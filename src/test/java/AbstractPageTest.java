@@ -1,4 +1,3 @@
-import main.MainGeekticConfiguration;
 import main.MainGeekticServer;
 import misc.PhantomJsTest;
 import org.junit.Before;
@@ -8,7 +7,7 @@ import java.util.Random;
 public abstract class AbstractPageTest extends PhantomJsTest {
   private static final int TRY_COUNT = 10;
   private static final int DEFAULT_PORT = 8183;
-  private static Random RANDOM_PORT = new Random();
+  private static final Random RANDOM_PORT = new Random();
 
   private static int port;
   private static MainGeekticServer server;
@@ -22,7 +21,7 @@ public abstract class AbstractPageTest extends PhantomJsTest {
     for (int i = 0; i < TRY_COUNT; i++) {
       try {
         port = randomPort();
-        server = new MainGeekticServer(new MainGeekticConfiguration());
+        server = new MainGeekticServer();
         server.start(port);
         return;
       } catch (Exception e) {

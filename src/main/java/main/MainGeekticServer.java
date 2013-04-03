@@ -2,7 +2,6 @@ package main;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-import com.google.inject.Module;
 import com.sun.jersey.api.container.filter.GZIPContentEncodingFilter;
 import com.sun.jersey.api.core.DefaultResourceConfig;
 import com.sun.jersey.api.core.ResourceConfig;
@@ -22,24 +21,24 @@ import static com.sun.jersey.api.core.ResourceConfig.PROPERTY_CONTAINER_RESPONSE
 import static java.lang.Integer.parseInt;
 
 public class MainGeekticServer {
-  private Module[] modules;
-  private Injector injector;
+  private final Injector injector;
 
-  public MainGeekticServer(Module... modules) {
-    this.modules = modules;
+  public MainGeekticServer() {
+    injector = Guice.createInjector();
   }
 
   public static void main(String[] args) throws IOException {
     int port = parseInt(firstNonNull(System.getenv("PORT"), "8080"));
 
-    MainGeekticServer geekticServer = new MainGeekticServer(new MainGeekticConfiguration());
+    MainGeekticServer geekticServer = new MainGeekticServer();
     geekticServer.start(port);
-    geekticServer.injector.getInstance(GeektickHashTagListener.class).start();
+    geekticServer.startTwitterListener();
   }
 
   public void start(int port) throws IOException {
     System.out.println("Starting server on port: " + port);
 
+    loadGeeks();
     SimpleServerFactory.create("http://localhost:" + port, configuration());
   }
 
@@ -47,11 +46,6 @@ public class MainGeekticServer {
     DefaultResourceConfig config = new DefaultResourceConfig();
 
     config.getClasses().add(JacksonJsonProvider.class);
-
-    injector = Guice.createInjector(modules);
-
-    Geeks geeks = injector.getInstance(Geeks.class);
-    geeks.load();
 
     config.getSingletons().add(injector.getInstance(MainResource.class));
     config.getSingletons().add(injector.getInstance(StaticResource.class));
@@ -61,5 +55,15 @@ public class MainGeekticServer {
     config.getProperties().put(PROPERTY_CONTAINER_RESPONSE_FILTERS, GZIPContentEncodingFilter.class);
 
     return config;
+  }
+
+  private void loadGeeks() throws IOException {
+    Geeks geeks = injector.getInstance(Geeks.class);
+    geeks.load();
+  }
+
+  private void startTwitterListener() {
+    GeektickHashTagListener listener = injector.getInstance(GeektickHashTagListener.class);
+    listener.start();
   }
 }
