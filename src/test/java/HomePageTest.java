@@ -13,10 +13,6 @@ public class HomePageTest extends AbstractPageTest {
   @Test
   public void should_display_homepage() {
     assertThat(title()).isEqualTo("CodeStory - Geektic");
-  }
-
-  @Test
-  public void should_display_no_geeks() {
     assertThat(find("#geeks").getText()).isEmpty();
   }
 
@@ -24,15 +20,15 @@ public class HomePageTest extends AbstractPageTest {
   public void should_search_geeks_who_love_cats() {
     fill("#searchInput").with("chats");
 
-    assertThat(find("#geeks .square .caption").getText()).contains("Gageot");
-    assertThat(find("#geeks .square .caption").getText()).contains("Java Tests Chats");
+    await().until("#geeks .square .caption").withText().contains("Gageot");
+    await().until("#geeks .square .caption").withText().contains("Java Tests Chats");
   }
 
   @Test
   public void should_search_scala_geeks() {
     fill("#searchInput").with("scala");
 
-    assertThat(find("#geeks").getText()).contains("Odersky");
+    await().until("#geeks").withText().contains("Odersky");
   }
 
   @Test
