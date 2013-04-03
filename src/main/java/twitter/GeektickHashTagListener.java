@@ -9,8 +9,12 @@ import twitter4j.TwitterStreamFactory;
 import twitter4j.conf.ConfigurationBuilder;
 
 public class GeektickHashTagListener extends StatusAdapter {
+  private final TwitterCommands twitterCommands;
+
   @Inject
-  private TwitterCommands twitterCommands;
+  public GeektickHashTagListener(TwitterCommands twitterCommands) {
+    this.twitterCommands = twitterCommands;
+  }
 
   public void start() {
     String accessToken = System.getenv("ACCESSTOKEN");

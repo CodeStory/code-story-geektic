@@ -14,8 +14,12 @@ import static com.google.common.collect.Iterables.toArray;
 public class TwitterCommands {
   public static final Pattern TWEET_PATTERN = Pattern.compile(".*#geektic (.+)");
 
+  private final Geeks geeks;
+
   @Inject
-  private Geeks geeks;
+  public TwitterCommands(Geeks geeks) {
+    this.geeks = geeks;
+  }
 
   public void onTweet(Status status) {
     String text = status.getText();
